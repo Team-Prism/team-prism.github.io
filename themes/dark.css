@@ -1,0 +1,16 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+#header {
+    background-color: #404040dd;
+}
+
+#content > div {
+    background-color: #ffffff44
+}
+
+a {
+    color: #fff;
+}

@@ -2,11 +2,27 @@
     <head>
         <meta name="description" content="description">
         <title>web page title go brrrr</title>
-        <link id="theme-css" href="./themes/dark.css">
+        <link id="theme-css" href="./themes/dark.css" rel="stylesheet">
+        <link id="layout-css" href="./themes/layout.css" rel="stylesheet">
         <script src="./js/index.js"></script>
     </head>
 
     <body>
-        <p>hello there</p>
+        <div id="background"></div>
+        <div id="header" class="fancy-border">
+            <a href="#home" onclick="homePage()">Home</a>
+            <a href="#story?-1" onclick="storyPage(-1)">Story</a>
+            <a href="#about" onclick="aboutPage()">About</a>
+            <a href="https://github.com/Team-Prism/Color-Thing">Source</a>
+        </div>
+        <div id="content">
+            <div id="content-main" class="fancy-border">
+                content
+            </div>
+
+            <div id="content-footer" class="fancy-border">
+                footer
+            </div>
+        </div>
     </body>
 </html>

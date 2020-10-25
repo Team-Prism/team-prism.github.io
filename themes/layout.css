@@ -1,0 +1,56 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.fancy-border {
+    border-width: 10px;
+    border-style: solid;
+    border-image-source: url("./bordeur.bmp");
+    border-image-slice: 40;
+    border-image-repeat: round;
+    border-image-outset: 5px;
+}
+
+#header {
+    width: 75%;
+    top: 0;
+    padding: 0;
+    height: 1.2em;
+    position: fixed;
+    left: calc(25% / 2);
+    z-index: 100;
+}
+
+#header-content {
+    margin: 1em;
+}
+
+#content {
+    width: 60%;
+    margin-top: 4em;
+    position: absolute;
+    left: calc(40% / 2);
+}
+
+#content-main {
+    height: 200vh;
+}
+
+#content > div {
+    margin-bottom: 2vh;
+}
+
+#content:last-child {
+    margin-bottom: 1vh;
+}
+
+#background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    background-size: cover;
+}
