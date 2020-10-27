@@ -9,7 +9,15 @@
 
         gtag('config', 'G-G4EZXYEXXY');
         </script>
+
+        <!--Discord Embed Metadata-->
         <meta name="description" content="description">
+        <meta name="theme-color" content="#ffffff">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="color thing"/>
+        <meta property="og:description" content="website description"/>
+        <meta property="og:url" content="https://team-prism.github.io/Color-Thing/"/>
+
         <title>web page title go brrrr</title>
         <link id="theme-css" href="./themes/dark.css" rel="stylesheet">
         <link id="layout-css" href="./themes/layout.css" rel="stylesheet">
@@ -17,22 +25,64 @@
         <script src="./js/header.js"></script>
     </head>
 
-    <body>
+    <body id="body">
         <div id="background"></div>
         <div id="header" class="fancy-border">
-            <a href="#home" onclick="homePage()">Home</a>
-            <a href="#story?-1" onclick="storyPage(-1)">Story</a>
-            <a href="#about" onclick="aboutPage()">About</a>
+            <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 530 530" version="1.1" id="team-prism-logo-svg" style="stroke-width:20">
+                <path id="logo-c" style="fill:#0000;" d="m 145,66 360,205 -360,205 z"/>
+                <g id="logo-o">
+                    <path id="logo-r" d="m 170,195 -130,75 130,75 z" onclick="setThemeColor('r')"/>
+                    <path id="logo-g" d="m 375,77  -130,75 130,75 z" onclick="setThemeColor('g')"/>
+                    <path id="logo-b" d="m 375,315 -130,75 130,75 z" onclick="setThemeColor('b')"/>
+                </g>
+            </svg>
+            <a href="#home" onclick="homePage(true)">Home</a>
+            <a href="#story?-1" onclick="storyPage(true, -1)">Story</a>
+            <a href="#about" onclick="aboutPage(true)">About</a>
             <a href="https://github.com/Team-Prism/Color-Thing">Source</a>
+            <a onclick="switchTheme();event.preventDefault()">Theme</a>
+            
         </div>
-        <div id="content">
-            <div id="content-main" class="fancy-border">
-                content
+        <div id="full-content">
+            <div id="home-content" class="content">
+                <div class="content-main fancy-border">
+                    home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>
+                    home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>
+                    home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>
+                    home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>
+                    home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>
+                    home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>
+                    home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>
+                    home<br>home<br>home<br>home<br>home<br>home<br>home<br>
+                </div>
+    
+                <div class="content-footer fancy-border">
+                    footer
+                </div>
             </div>
-
-            <div id="content-footer" class="fancy-border">
-                footer
+    
+            <div id="story-content" class="content">
+                <div class="content-main fancy-border">
+                    story
+                </div>
+    
+                <div class="content-footer fancy-border">
+                    footer
+                </div>
             </div>
+    
+            <div id="about-content" class="content">
+                <div class="content-main fancy-border">
+                    about
+                </div>
+    
+                <div class="content-footer fancy-border">
+                    footer
+                </div>
+            </div>
+        </div>
+        <div id="scrollbar">
+            <div id="scrollbar-handle" style="height:5vh;top:5vh"></div>
         </div>
     </body>
 </html>

@@ -1,0 +1,36 @@
+body {
+    background-color: white;
+    color: black;
+}
+
+#header {
+    background-color: #fffd;
+}
+
+.content > div {
+    background-color: #fffc
+}
+
+a {
+    color: #000;
+}
+
+#background {
+    filter: invert(100%);
+}
+
+#team-prism-logo-svg {
+    stroke: #000
+}
+
+#scrollbar {
+    background-color: #fff0;
+}
+
+#scrollbar:hover {
+    background-color: #fff4;
+}
+
+#scrollbar-handle {
+    background-color: #000;
+}

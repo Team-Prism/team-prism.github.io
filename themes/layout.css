@@ -1,12 +1,23 @@
 body {
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    width: 300vw;
+}
+
+#logo-r { fill: #f00 }
+#logo-g { fill: #0f0 }
+#logo-b { fill: #00f }
+
+* {
+    user-select: none;
 }
 
 .fancy-border {
     border-width: 10px;
     border-style: solid;
-    border-image-source: url("./bordeur.bmp");
+    border-image-source: url("./bordeur2.bmp");
     border-image-slice: 40;
     border-image-repeat: round;
     border-image-outset: 5px;
@@ -16,32 +27,59 @@ body {
     width: 75%;
     top: 0;
     padding: 0;
-    height: 1.2em;
+    padding-top: 5px;
+    padding-left: 50px;
+    height: 2em;
     position: fixed;
     left: calc(25% / 2);
     z-index: 100;
+}
+
+#team-prism-logo-svg {
+    position: absolute;
+    top: -10px;
+    lefT: -10px;
 }
 
 #header-content {
     margin: 1em;
 }
 
-#content {
-    width: 60%;
-    margin-top: 4em;
+#full-content {
+    overflow-x: hidden;
+}
+
+.content {
+    width: calc(60% - 1vw);
+    height: calc(100vh - 5em);
+    padding-top: 5em;
     position: absolute;
-    left: calc(40% / 2);
+    top: 0;
+    margin-right: 20vw;
+    margin-left: 20vw;
+    overflow-y: scroll;
+    overflow-x: visible;
 }
 
-#content-main {
-    height: 200vh;
+.content::-webkit-scrollbar {
+    width: 0px;
+    height: 10em;
+    position: fixed;
+    margin: 1px;
+    bottom: 0;
+    right: 0;
+    padding: 0;
 }
 
-#content > div {
+.content-main {
+    height: auto;
+}
+
+.content > div {
     margin-bottom: 2vh;
 }
 
-#content:last-child {
+.content > :last-child {
     margin-bottom: 1vh;
 }
 
@@ -53,4 +91,37 @@ body {
     width: 100%;
     z-index: -1;
     background-size: cover;
+}
+
+#home-content {
+    left: 0vw;
+}
+
+#story-content {
+    left: 100vw
+}
+
+#about-content {
+    left: 200vw;
+}
+
+#scrollbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 5px;
+    transition-duration: 100ms;
+    transition-property: width;
+}
+
+#scrollbar:hover {
+    width: 1.2em;
+}
+
+#scrollbar-handle {
+    position: absolute;
+    right: 0;
+    width: 100%;
+    border-radius: 10px
 }

@@ -1,0 +1,24 @@
+body {
+    background-color: red;
+    color: white;
+}
+
+#header {
+    background-color: #d11d;
+}
+
+#logo-o > #logo-r { fill: #000; stroke: #f00 }
+#logo-o > #logo-g { fill: #0f0; stroke: #000}
+#logo-o > #logo-b { fill: #00f; stroke: #000}
+
+.content > div {
+    background-color: #f00a
+}
+
+a {
+    color: #f00;
+}
+
+#team-prism-logo-svg {
+    stroke: #f00
+}

@@ -4,13 +4,29 @@ body {
 }
 
 #header {
-    background-color: #404040dd;
+    background-color: #111d;
 }
 
-#content > div {
-    background-color: #ffffff44
+.content > div {
+    background-color: #000c
 }
 
 a {
     color: #fff;
+}
+
+#team-prism-logo-svg {
+    stroke: #fff
+}
+
+#scrollbar {
+    background-color: #0000;
+}
+
+#scrollbar:hover {
+    background-color: #1114;
+}
+
+#scrollbar-handle {
+    background-color: #fff4;
 }
