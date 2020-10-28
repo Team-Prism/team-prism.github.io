@@ -7,7 +7,7 @@ var heldKeys = {};
 window.onkeyup = (e) => { heldKeys[e.keyCode] = false; }
 window.onkeydown = (e) => { heldKeys[e.keyCode] = true; }
 
-let websiteVersionString = "v0.2.1 - PWA Test 2"
+let websiteVersionString = "v0.2.2 - PWA Test 3"
 
 let currentPageA = "home"
 let sb_lastY;
@@ -113,7 +113,7 @@ window.onload = function() {
     }
 
     if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("./pwa/service-worker.js");
+        navigator.serviceWorker.register("./Color-Thing/pwa/service-worker.js");
     }
 }
 
