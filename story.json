@@ -1,0 +1,33 @@
+{   
+    "meta": {
+        "lastPage": "2"
+    },
+    "-1": {"type": "homepage"},
+    "1": {
+        "type": "video",
+        "src": "./assets/test-video.mp4",
+        "bg-dark": {
+            "src": "./assets/meadowgatedark.png",
+            "invert": false
+        },
+        "bg-light": {
+            "src": "./assets/meadowgatedark.png",
+            "invert": true
+        }
+    },
+    "2": {
+        "type": "image",
+        "src": "./assets/meadowgatedark.png",
+        "bg-dark": {
+            "src": "./assets/temp-background.png",
+            "invert": false
+        },
+        "bg-light": {
+            "src": "./assets/meadowgatedark.png",
+            "invert": true
+        },
+        "audio": {
+            "type": "none"
+        }
+    }
+}

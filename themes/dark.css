@@ -8,7 +8,11 @@ body {
 }
 
 .content > div {
-    background-color: #000c
+    background-color: #101010aa;
+}
+
+.fancy-border {
+    border-color: #222;
 }
 
 a {

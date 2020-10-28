@@ -675,6 +675,13 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
         """
         path = self.translate_path(self.path)
+        blacklist = ["/webserver.py", "/.gitignore", "/readme.md"]
+        if self.path.lower() in blacklist:
+            self.send_error(HTTPStatus.NOT_FOUND)
+            return None
+        if self.path.lower().startswith("/.git"):
+            self.send_error(HTTPStatus.NOT_FOUND)
+            return None
         f = None
         if os.path.isdir(path):
             parts = urllib.parse.urlsplit(self.path)

@@ -1,31 +1,71 @@
 //const body = document.getElementById("body")
 
-var heldKeys = {};
-window.onkeyup = (e) => { heldKeys[e.keyCode] = false; }
-window.onkeydown = (e) => { heldKeys[e.keyCode] = true; }
-
-let currentPage = "home"
-
-function homePage(smooth) {
-    currentPage = "home"
-    body.scrollTop = 0;
-    body.scrollTo({top: 0, left: body.clientWidth * 0, behavior: (smooth == true ? "smooth" : "auto")})
-    handleScroll()
-    //body.scrollLeft = body.clientWidth * 0;
+function setTitle(text) {
+    document.getElementById("title").innerHTML = text;
 }
 
-function storyPage(smooth, pageId) {
-    currentPage = "story"
+function isDarkTheme() {
+    return (document.getElementById("theme-css").href.endsWith("/dark.css"))
+}
+
+function isLightTheme() {
+    return (document.getElementById("theme-css").href.endsWith("/light.css"))
+}
+
+function shouldSmoothScroll(a) {
+    return (a || true) && !window.matchMedia("(prefers-reduced-motion)").matches
+}
+
+window.onresize = function on_resize(e) {
+    switch (currentPageA) {
+        case "home":
+            homePage(false);
+            break;
+        case "story":
+            storyPage(false);
+            break;
+        case "about":
+            aboutPage(false);
+            break;
+        default:
+            homePage(false);
+    }
+}
+
+function toggleWidePages() {
+    let fc = document.getElementById("full-content");
+    
+    if (fc.classList.contains("wide")) fc.classList.remove("wide");
+    else fc.classList.add("wide");
+}
+
+function homePage(smooth) {
+    currentPageA = "home"
     body.scrollTop = 0;
-    body.scrollTo({top: 0, left: body.clientWidth * 1, behavior: (smooth == true ? "smooth" : "auto")})
+    body.scrollTo({top: 0, left: body.clientWidth * 0, behavior: (shouldSmoothScroll(smooth) == true ? "smooth" : "auto")})
     handleScroll()
+    resetBackgroundImage()
+    setTitle("Home - Color Thing")
+}
+
+function storyPage(smooth) {
+    currentPageA = "story"
+    body.scrollTop = 0;
+    body.scrollTo({top: 0, left: body.clientWidth * 1, behavior: (shouldSmoothScroll(smooth) == true ? "smooth" : "auto")})
+    handleScroll()
+    if (smooth) {
+        setStoryPageTitle()
+        setTimeout(() => { window.location.hash = "story?" + currentPage; }, 2)
+    }
 }
 
 function aboutPage(smooth) {
-    currentPage = "about"
+    currentPageA = "about"
     body.scrollTop = 0;
-    body.scrollTo({top: 0, left: body.clientWidth * 2, behavior: (smooth == true ? "smooth" : "auto")})
+    body.scrollTo({top: 0, left: body.clientWidth * 2, behavior: (shouldSmoothScroll(smooth) == true ? "smooth" : "auto")})
     handleScroll()
+    resetBackgroundImage()
+    setTitle("About - Color Thing")
 }
 
 function switchTheme() {
@@ -33,21 +73,25 @@ function switchTheme() {
     if (heldKeys[91] || heldKeys[16]) {
         style.href = "./themes/very-dark.css"
         localStorage.setItem("theme", "dark+");
+    } else if (heldKeys[17]) {
+        localStorage.removeItem("theme");
+        loadTheme();
     } else {
         if (style.href.endsWith("/dark.css")) {
             style.href  = "./themes/light.css"
             localStorage.setItem("theme", "light");
-            resetBackgroundImage("dark")
+            resetBackgroundImage()
         } else {
             style.href  = "./themes/dark.css";
             localStorage.setItem("theme", "dark");
-            resetBackgroundImage("dark")
+            resetBackgroundImage()
         }
     }
 }
 
-function setThemeColor(c, skip) {
-    console.log(c)
+function setThemeColor(c, skip, requirekey) {
+    if (requirekey && !heldKeys[18]) return;
+    //console.log(c)
     c = {"r":"red","g":"green","b":"blue"}[c] || "dark";
     if (!skip && document.getElementById("theme-css").href.endsWith("/themes/" + c + ".css")) {
         console.log("reset theme")
@@ -57,4 +101,22 @@ function setThemeColor(c, skip) {
     localStorage.setItem("theme", c);
     if (c == "dark" || c == "light") resetBackgroundImage()
     else document.getElementById("background").style.backgroundImage = 'url("./assets/bg-' + c + '.png")'
+}
+
+let _logoisrgb = false;
+
+function rgbLogo() {
+    if (heldKeys[17]) {
+        if (!_logoisrgb) {
+            document.getElementById("logo-r").classList.add("rgb-r");
+            document.getElementById("logo-g").classList.add("rgb-g");
+            document.getElementById("logo-b").classList.add("rgb-b");
+            _logoisrgb = true;
+        } else {
+            document.getElementById("logo-r").classList.remove("rgb-r");
+            document.getElementById("logo-g").classList.remove("rgb-g");
+            document.getElementById("logo-b").classList.remove("rgb-b");
+            _logoisrgb = false;
+        }
+    } //else console.log("not holding key")
 }

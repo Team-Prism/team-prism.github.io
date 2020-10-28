@@ -11,6 +11,10 @@ body {
     background-color: #fffc
 }
 
+.fancy-border {
+    border-color: #000;
+}
+
 a {
     color: #000;
 }

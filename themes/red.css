@@ -1,3 +1,9 @@
+:root {
+    --theme-solid-color: #f00;
+    --theme-svg-line: #f00;
+    --theme-text-color: #a00;
+}
+
 body {
     background-color: red;
     color: white;

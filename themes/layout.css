@@ -1,9 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
 body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
     overflow-y: hidden;
     width: 300vw;
+    font-family: "Ubuntu";
+}
+
+@media (prefers-reduced-motion) {
+    * {
+        transition-duration: 0ms !important;
+    }
 }
 
 #logo-r { fill: #f00 }
@@ -14,21 +23,31 @@ body {
     user-select: none;
 }
 
+.selectable {
+    user-select: contain;
+}
+
+.selectable > * {
+    user-select: text;
+}
+
 .fancy-border {
-    border-width: 10px;
+    border-width: 5px;
     border-style: solid;
-    border-image-source: url("./bordeur2.bmp");
+    border-radius: 5px;
+    padding: 5px;
+    /*border-image-source: url("./bordeur2.bmp");
     border-image-slice: 40;
     border-image-repeat: round;
-    border-image-outset: 5px;
+    border-image-outset: 5px;*/
 }
 
 #header {
     width: 75%;
-    top: 0;
+    top: -5px;
     padding: 0;
-    padding-top: 5px;
-    padding-left: 50px;
+    padding-top: 10px;
+    padding-left: 60px;
     height: 2em;
     position: fixed;
     left: calc(25% / 2);
@@ -37,8 +56,8 @@ body {
 
 #team-prism-logo-svg {
     position: absolute;
-    top: -10px;
-    lefT: -10px;
+    top: -5px;
+    lefT: 0px;
 }
 
 #header-content {
@@ -57,8 +76,15 @@ body {
     top: 0;
     margin-right: 20vw;
     margin-left: 20vw;
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: visible;
+    transition-duration: 250ms;
+}
+
+#full-content.wide > .content {
+    width: calc(95vw - 1vw);
+    margin-right: 2.5vw;
+    margin-left: 2.5vw;
 }
 
 .content::-webkit-scrollbar {
@@ -71,16 +97,11 @@ body {
     padding: 0;
 }
 
-.content-main {
-    height: auto;
-}
-
 .content > div {
     margin-bottom: 2vh;
-}
-
-.content > :last-child {
-    margin-bottom: 1vh;
+    overflow-y: visible;
+    overflow-x: visible;
+    backdrop-filter: blur(20px);
 }
 
 #background {
@@ -98,11 +119,15 @@ body {
 }
 
 #story-content {
-    left: 100vw
+    left: 100vw;
 }
 
 #about-content {
     left: 200vw;
+}
+
+#spacer-content {
+    left: 300vw
 }
 
 #scrollbar {
@@ -115,7 +140,7 @@ body {
     transition-property: width;
 }
 
-#scrollbar:hover {
+#scrollbar:hover, #scrollbar.held {
     width: 1.2em;
 }
 
@@ -123,5 +148,99 @@ body {
     position: absolute;
     right: 0;
     width: 100%;
-    border-radius: 10px
+    border-radius: 10px;
+}
+
+.rgb-r {
+    animation: rgb-anim-r 5s linear 0s infinite;
+}
+
+.rgb-g {
+    animation: rgb-anim-g 5s linear 0s infinite;
+}
+
+.rgb-b {
+    animation: rgb-anim-b 5s linear 0s infinite;
+}
+
+@keyframes rgb-anim-r {
+    0% {
+        fill: #f00;
+    }
+    16.6% {
+        fill: #ff0;
+    }
+    33.3% {
+        fill: #0f0;
+    }
+    49.9% {
+        fill: #0ff;
+    }
+    66.5% {
+        fill: #00f;
+    }
+    83.1% {
+        fill: #f0f;
+    }
+    99.7% {
+        fill: #f00;
+    }
+    100% {
+        fill: #f00;
+    }
+}
+
+@keyframes rgb-anim-g {
+    0% {
+        fill: #0f0;
+    }
+    16.6% {
+        fill: #0ff;
+    }
+    33.3% {
+        fill: #00f;
+    }
+    49.9% {
+        fill: #f0f;
+    }
+    66.5% {
+        fill: #f00;
+    }
+    83.1% {
+        fill: #ff0;
+    }
+    99.7% {
+        fill: #0f0;
+    }
+    100% {
+        fill: #0f0;
+    }
+}
+/*0 16 33 50 66 82 100*/
+
+@keyframes rgb-anim-b {
+    0% {
+        fill: #00f;
+    }
+    16.6% {
+        fill: #f0f;
+    }
+    33.3% {
+        fill: #f00;
+    }
+    49.9% {
+        fill: #ff0;
+    }
+    66.5% {
+        fill: #0f0;
+    }
+    83.1% {
+        fill: #0ff;
+    }
+    99.7% {
+        fill: #00f;
+    }
+    100% {
+        fill: #00f;
+    }
 }
