@@ -7,7 +7,7 @@ var heldKeys = {};
 window.onkeyup = (e) => { heldKeys[e.keyCode] = false; }
 window.onkeydown = (e) => { heldKeys[e.keyCode] = true; }
 
-let websiteVersionString = "v0.2.0 - PWA Test 1"
+let websiteVersionString = "v0.2.1 - PWA Test 2"
 
 let currentPageA = "home"
 let sb_lastY;
@@ -106,7 +106,7 @@ window.onload = function() {
         window.addEventListener("mouseup", scroll_end)
     }
 
-    if (window.location.hash.endsWith("offline")) {
+    if (window.location.href.endsWith("offline.html")) {
         document.getElementById("story-content").innerHTML = "<div class='content-main fancy-border'>You are offline, and you must be online to read the story!</div><div class='content-footer fancy-border'>&copy; 2020 Team Prism</div>"
     } else {
         loadStory()
