@@ -4,7 +4,7 @@
     "description": "Standalone for Color Thing",
     "display": "standalone",
     "background_color": "#000000",
-    "scope": "/",
+    "scope": "/Color-Thing/",
     "start_url": "/Color-Thing/index.html#home",
     "icons": [
         {
