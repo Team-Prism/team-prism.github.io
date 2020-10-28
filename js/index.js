@@ -113,7 +113,7 @@ window.onload = function() {
     }
 
     if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("./Color-Thing/pwa/service-worker.js");
+        navigator.serviceWorker.register("./pwa/service-worker.js");
     }
 }
 
