@@ -7,7 +7,7 @@ var heldKeys = {};
 window.onkeyup = (e) => { heldKeys[e.keyCode] = false; }
 window.onkeydown = (e) => { heldKeys[e.keyCode] = true; }
 
-let websiteVersionString = "v0.2.2 - PWA Test 3"
+let websiteVersionString = "v0.2.4 - PWA Test 4";
 
 let currentPageA = "home"
 let sb_lastY;
