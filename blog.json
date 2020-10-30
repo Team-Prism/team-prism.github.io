@@ -1,0 +1,23 @@
+{
+    "allPosts": [
+        {
+            "title": "Title of Post",
+            "author": "Author of Post",
+            "date": "Date",
+            "image": "./assets/bg-green.png",
+            "content": [
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque accumsan eget arcu in rutrum. Fusce sit amet nunc commodo sem sollicitudin facilisis nec id arcu. Sed quam turpis, ultrices vitae gravida in, consequat vel risus. Duis aliquam ligula at dolor molestie consectetur. Maecenas velit quam, consequat sit amet nisl vel, accumsan aliquam odio. Duis nec purus suscipit, venenatis ex id, consectetur velit. Donec ac eros ut velit ullamcorper congue non a massa. Mauris id quam consequat, efficitur lectus ut, pulvinar nisi. Nullam ullamcorper, libero lacinia volutpat pretium, sapien ligula volutpat odio, vitae suscipit lacus odio ut dui.",
+                "Duis dapibus neque et dignissim mattis. Aliquam semper molestie magna sit amet luctus. Nunc massa urna, volutpat eu sagittis ut, tristique ut ante. Maecenas eget eleifend elit. Maecenas ut eros quis arcu scelerisque condimentum. Etiam pretium, lectus at dictum pretium, ex nibh hendrerit magna, sed hendrerit sem ipsum non eros. Etiam placerat varius leo, et mattis dui elementum a. Pellentesque viverra diam nibh, ac pellentesque dolor volutpat ut. Sed sapien sem, aliquam et ultricies et, placerat eget dolor. Mauris nisl augue, feugiat at mauris id, suscipit congue urna."
+            ]
+        },
+        {
+            "title": "Title of Post 2",
+            "author": "Author of Post 2",
+            "date": "Date 2",
+            "image": "./assets/bg-blue.png",
+            "content": [
+                "hello there"
+            ]
+        }
+    ]
+}

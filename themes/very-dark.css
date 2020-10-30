@@ -39,6 +39,20 @@ a {
     color: #999;
 }
 
+#story-image {
+    opacity: 100%;
+}
+
+img {
+    opacity: 50%;
+    transition-property: opacity;
+    transition-duration: 150ms;
+}
+
+img:hover {
+    opacity: 100%;
+}
+
 #team-prism-logo-svg {
     stroke: #555
 }

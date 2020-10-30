@@ -1,27 +1,31 @@
 function loadStory() {
-    fetch("./story.json")
+    return fetch("./story.json")
         .then((res) => {
-            console.log(res);
             if (!res.ok) {
                 throw new Error("HTTP error: " + res.status);
             }
             return res.json()
         })
         .then((data) => {
-            console.log(data);
             story = data
             storyLoaded = true;
         })
         .catch((err) => {
-            console.error(err)
+            throw err;
         })
 }
 
 function jumpToFirstUnreadPage() {
-    let page = localStorage.getItem("lastReadPage") || 0;
-    page += 1;
+    let page = parseInt(localStorage.getItem("lastReadPage") || "0");
+    if (storyLoaded) {
+        if (parseInt(story['meta']['lastPage']) > page) page++;
+        generateStoryPage(page, false);
+    } else {
+        setTimeout(jumpToFirstUnreadPage, 10);
+    }
+    //page += 1;
     //console.log("first unread: " + page)
-    generateStoryPage(parseInt(page) + 1);
+    
 }
 
 function jumpToLastPage() {
@@ -32,18 +36,18 @@ function jumpToLastPage() {
 
 function nextStoryPage() {
     if (currentPage == -1) currentPage = 0;
-    localStorage.setItem("lastReadPage", currentPage)
+    if (parseInt(localStorage.getItem("lastReadPage")) < currentPage) localStorage.setItem("lastReadPage", currentPage)
     let page = currentPage + 1;
     if (page > story['meta'].lastPage) page = currentPage;
     //console.log("next page: " + page)
-    generateStoryPage(page)
+    generateStoryPage(page, false)
 }
 
 function prevStoryPage() {
     let page = currentPage - 1;
     if (currentPage == -1) page = -1
     //console.log("prev page: " + page)
-    generateStoryPage(page)
+    generateStoryPage(page, false)
 }
 
 function hideStoryPageElements() {
@@ -70,8 +74,8 @@ function setStoryPageTitle(pageNumber) {
     setTitle(getStoryPageTitle(pageNumber || currentPage) + " - Color Thing")
 }
 
-function generateStoryPage(pageNumber) {
-    if (!storyLoaded) { setTimeout(generateStoryPage, 10, [pageNumber]); return; }
+function generateStoryPage(pageNumber, sethash) {
+    if (!storyLoaded) { setTimeout(() => {generateStoryPage(pageNumber, sethash)}, 10);; return; }
     let nf = null
     isOnRealStoryPage = false;
     if (pageNumber == -2) { jumpToFirstUnreadPage(); return}
@@ -80,7 +84,7 @@ function generateStoryPage(pageNumber) {
     if (pageNumber == 0) pageNumber = -1
     currentPage = pageNumber;
     if (pageNumber > 0) localStorage.setItem("lastVisitedPage", pageNumber.toString())
-    if (pageNumber > -2) window.location.hash = "#story?" + pageNumber;
+    if (pageNumber > -2 && !sethash) window.location.hash = "#story?" + pageNumber;
     if (!story[pageNumber] || pageNumber == -3) {
         isOnRealStoryPage = false;
         hideStoryPageElements()

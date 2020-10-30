@@ -7,12 +7,25 @@ body {
     background-color: #111d;
 }
 
+#header-div > a > div {
+    background-color: #0000;
+}
+
+#header-div > a > div:hover {
+    background-color: #3334;
+}
+
 .content > div {
     background-color: #101010aa;
 }
 
 .fancy-border {
     border-color: #222;
+}
+
+#home-read-button {
+    background-color: #fff4;
+    border-color: #999;
 }
 
 a {

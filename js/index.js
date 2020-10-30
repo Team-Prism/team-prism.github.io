@@ -6,8 +6,9 @@ let storyLoaded = false;
 var heldKeys = {};
 window.onkeyup = (e) => { heldKeys[e.keyCode] = false; }
 window.onkeydown = (e) => { heldKeys[e.keyCode] = true; }
+let meme = (window.location.href.endsWith("meme"));
 
-let websiteVersionString = "v0.2.4 - PWA Test 4";
+let websiteVersionString = "v0.3.2";
 
 let currentPageA = "home"
 let sb_lastY;
@@ -15,37 +16,44 @@ let sb_ratio;
 let raf = window.requestAnimationFrame || window.setImmediate || function (c) { return setTimeout(c, 0) };
 
 function resetBackgroundImage() {
+    let bg = document.getElementById("background");
     if (currentPageA == "story" && storyLoaded && story[currentPage] && isOnRealStoryPage) {
         if (story[currentPage]['bg-dark'] && isDarkTheme()) {
-            document.getElementById("background").style.backgroundImage = "url(" + story[currentPage]['bg-dark'].src + ")";
-            if (story[currentPage]['bg-dark'].invert) document.getElementById("background").style.filter = "invert(100%)";
-            else document.getElementById("background").style.filter = "invert(0%)";
-        } else if (storyLoaded  && story[currentPage] && story[currentPage]['bg-light'] && isLightTheme() && isOnRealStoryPage) {
-            document.getElementById("background").style.backgroundImage = "url(" + story[currentPage]['bg-light'].src + ")";
-            if (story[currentPage]['bg-light'].invert) document.getElementById("background").style.filter = "invert(100%)";
-            else document.getElementById("background").style.filter = "invert(0%)";
+            bg.style.backgroundImage = "url(" + story[currentPage]['bg-dark'].src + ")";
+            if (story[currentPage]['bg-dark'].invert) bg.style.filter = "invert(100%)";
+            else bg.style.filter = "invert(0%)";
+        } else if (story[currentPage]['bg-light'] && isLightTheme()) {
+            bg.style.backgroundImage = "url(" + story[currentPage]['bg-light'].src + ")";
+            if (story[currentPage]['bg-light'].invert) bg.style.filter = "invert(100%)";
+            else bg.style.filter = "invert(0%)";
         } else {
-            document.getElementById("background").style.backgroundImage = (window.location.href.endsWith("meme") || (Math.random()*1000 < 5)  ? 'url("https://media1.tenor.com/images/9a762bc54a465df741b0efd0ac887601/tenor.gif")' : 'url("./assets/meadowgatedark.png")');
-            document.getElementById("background").style.filter = "";
+            let chance = false
+            if (!meme) chance = (Math.random()*1000 < 5);
+            if (chance) meme = true;
+            bg.style.backgroundImage = ((meme || chance) ? 'url("https://media1.tenor.com/images/9a762bc54a465df741b0efd0ac887601/tenor.gif")' : 'url("./assets/meadowgatedark.png")');
+            bg.style.filter = "";
         }
     } else {
-        document.getElementById("background").style.backgroundImage = (window.location.href.endsWith("meme") || (Math.random()*1000 < 5)  ? 'url("https://media1.tenor.com/images/9a762bc54a465df741b0efd0ac887601/tenor.gif")' : 'url("./assets/meadowgatedark.png")');
-        document.getElementById("background").style.filter = "";
+        let chance = false
+        if (!meme) chance = (Math.random()*1000 < 5);
+        if (chance) meme = true;
+        bg.style.backgroundImage = ((meme || chance) ? 'url("https://media1.tenor.com/images/9a762bc54a465df741b0efd0ac887601/tenor.gif")' : 'url("./assets/meadowgatedark.png")');
+        bg.style.filter = "";
     }
 }
 
 function loadTheme() {
     let userTheme = localStorage.getItem("theme")
     let fallbackTheme = (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark")
-    document.getElementById("theme-css").href = "./themes/" + {"dark+":"very-dark","light":"light","dark":"dark","red":"red","green":"green","blue":"blue"}[userTheme || fallbackTheme] + ".css";
-    if (["red","green","blue"].includes(localStorage.getItem("theme"))) {
+    setActiveTheme({"dark+":"dark+","light":"light","dark":"dark","red":"dark","green":"light","blue":"dark"}[userTheme || fallbackTheme]);
+    /*if (["red","green","blue"].includes(localStorage.getItem("theme"))) {
         setThemeColor({"red":"r","green":"g","blue":"b"}[localStorage.getItem("theme")], true);
-    }
+    }*/
 
     if (!userTheme) {
         window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
             if (!userTheme) {
-                document.getElementById("theme-css").href = "./themes/" + (e.matches ? "dark" : "light") + ".css";
+                setActiveTheme(e.matches ? "dark" : "light");
             } else {
                 window.matchMedia("(prefers-color-scheme: dark)").removeEventListener("change", this)
             }
@@ -65,21 +73,23 @@ window.onload = function() {
     document.getElementById("story-content").onscroll = (e) => {setTimeout(() => {handleScroll()}, 0)}
     document.getElementById("about-content").onscroll = (e) => {setTimeout(() => {handleScroll()}, 0)}
 
-    loadTheme()
+    
 
     // switch to correct page
     let hsh = window.location.hash;
-    console.log(hsh)
+    //console.log(hsh)
+    let sP = -1;
     if (hsh === "") console.log("nothing")
     else if (hsh.startsWith("#home")) {
-        setTimeout(homePage, 10, [false]);
+        setTimeout(() => {homePage(false)}, 10);
     } else if (hsh.startsWith("#story")) {
-        setTimeout(storyPage, 10, [false]);
-        setTimeout(generateStoryPage, 11, [window.location.hash.split("?")[1] || -1]);
+        setTimeout(() => {storyPage(false)}, 10, false);
+        sP = window.location.hash.split("?")[1] || -1
     } else if (hsh.startsWith("#about")) {
-        setTimeout(aboutPage, 10, [false]);
+        setTimeout(() => {aboutPage(false)}, 10, false);
     }
-    console.log(currentPageA)
+    setTimeout(() => {generateStoryPage(sP, true)}, 11);
+    //console.log(currentPageA)
 
     document.getElementById("db-useragent").innerHTML = window.navigator.userAgent;
 
@@ -109,11 +119,33 @@ window.onload = function() {
     if (window.location.href.endsWith("offline.html")) {
         document.getElementById("story-content").innerHTML = "<div class='content-main fancy-border'>You are offline, and you must be online to read the story!</div><div class='content-footer fancy-border'>&copy; 2020 Team Prism</div>"
     } else {
-        loadStory()
+        loadBlog().then(() => {
+            console.log("loaded blog")
+            document.getElementById("blog-div").hidden = false;
+            document.getElementById("blog-loading").remove()
+        }).catch((err) => {
+            let bl = document.getElementById("blog-loading");
+            bl.innerHTML = err.toString()
+            bl.classList.add("error")
+        })
+        loadStory().then(() => {
+            document.getElementById("story-main").hidden = false;
+            document.getElementById("story-loading").remove()
+        }).catch((err) => {
+            let sl = document.getElementById("story-loading");
+            sl.innerHTML = err.toString()
+            sl.classList.add("error")
+        })
     }
 
     if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("./service-worker.js");
+    }
+
+    loadTheme()
+    if (localStorage.getItem("wide")) {
+        document.getElementById("full-content").classList.add("wide");
+        document.getElementById("blog-div").classList.add("wide"); 
     }
 }
 
@@ -155,7 +187,7 @@ function handleScroll() {
 
 window.onwheel = (e) => {
     //console.log(e)
-    setTimeout(() => {
+    /*setTimeout(() => {
         if (!e.ctrlKey) document.getElementById(currentPageA + "-content")
         .scrollBy({ /* the line below is needlessly complicated because firefox uses deltaMode 1 instead of deltaMode 0
                     the w3 spec states that deltaY can be given in pixels, lines, or pages, and which of those it uses
@@ -163,11 +195,12 @@ window.onwheel = (e) => {
                         Firefox uses lines, while chrome uses pixels, so if the deltaMode is 1, i multiply the deltaY
                         by 30, which should mean the scroll amount is 90 (while it is 100 on chrome), so in theory
                         scrolling will be slower on firefox by 10 pixels per 'notch'
-            */
-            top: (e.deltaMode == 0 ? e.deltaY : e.deltaY * 30) * (e.altKey ? 3 : 1),
+            *\/
+            top: (e.deltaMode == 0 ? e.deltaY : e.deltaY * 30) * (e.altKey ? 6 : 2),
             behavior: shouldSmoothScroll() ? "smooth" : "auto"
         })
-    }, 0)
+    }, 0)*/
+    setTimeout(handleScroll, 0)
 }
 
 window.ontouchstart = (e) => {

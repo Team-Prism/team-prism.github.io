@@ -1,19 +1,20 @@
 //const body = document.getElementById("body")
 
 function setTitle(text) {
+    if (document.getElementById("body").classList.contains("offline")) text = "Offline - " + text;
     document.getElementById("title").innerHTML = text;
 }
 
 function isDarkTheme() {
-    return (document.getElementById("theme-css").href.endsWith("/dark.css"))
+    return ((localStorage.getItem("theme") || "dark") == "dark")
 }
 
 function isLightTheme() {
-    return (document.getElementById("theme-css").href.endsWith("/light.css"))
+    return (localStorage.getItem("theme") == "light")
 }
 
 function shouldSmoothScroll(a) {
-    return (a || true) && !window.matchMedia("(prefers-reduced-motion)").matches
+    return ((a == undefined) ? true : a) && !window.matchMedia("(prefers-reduced-motion)").matches
 }
 
 window.onresize = function on_resize(e) {
@@ -33,10 +34,12 @@ window.onresize = function on_resize(e) {
 }
 
 function toggleWidePages() {
-    let fc = document.getElementById("full-content");
+    let fc = document.getElementById("body");
+    let blog = document.getElementById("blog-div");
     
-    if (fc.classList.contains("wide")) fc.classList.remove("wide");
-    else fc.classList.add("wide");
+    if (fc.classList.contains("wide")) {fc.classList.remove("wide"); blog.classList.remove("wide"); localStorage.removeItem("wide")}
+    else {fc.classList.add("wide"); blog.classList.add("wide"); localStorage.setItem("wide", "1")}
+    setTimeout(handleScroll, 250)
 }
 
 function homePage(smooth) {
@@ -53,6 +56,7 @@ function storyPage(smooth) {
     body.scrollTop = 0;
     body.scrollTo({top: 0, left: body.clientWidth * 1, behavior: (shouldSmoothScroll(smooth) == true ? "smooth" : "auto")})
     handleScroll()
+    resetBackgroundImage()
     if (smooth) {
         setStoryPageTitle()
         setTimeout(() => { window.location.hash = "story?" + currentPage; }, 2)
@@ -68,21 +72,27 @@ function aboutPage(smooth) {
     setTitle("About - Color Thing")
 }
 
+function setActiveTheme(theme) {
+    document.getElementById("dark-theme-css").sheet.disabled = true;
+    document.getElementById("vdark-theme-css").sheet.disabled = true;
+    document.getElementById("light-theme-css").sheet.disabled = true;
+    document.getElementById({"vdark": "vdark", "dark+": "vdark", "dark": "dark", "light": "light"}[theme] + "-theme-css").sheet.disabled = false
+}
+
 function switchTheme() {
-    let style = document.getElementById("theme-css");
     if (heldKeys[91] || heldKeys[16]) {
-        style.href = "./themes/very-dark.css"
+        setActiveTheme("dark+")
         localStorage.setItem("theme", "dark+");
     } else if (heldKeys[17]) {
         localStorage.removeItem("theme");
         loadTheme();
     } else {
-        if (style.href.endsWith("/dark.css")) {
-            style.href  = "./themes/light.css"
+        if (localStorage.getItem("theme") !== "light") {
+            setActiveTheme("light")
             localStorage.setItem("theme", "light");
             resetBackgroundImage()
         } else {
-            style.href  = "./themes/dark.css";
+            setActiveTheme("dark")
             localStorage.setItem("theme", "dark");
             resetBackgroundImage()
         }
@@ -93,12 +103,12 @@ function setThemeColor(c, skip, requirekey) {
     if (requirekey && !heldKeys[18]) return;
     //console.log(c)
     c = {"r":"red","g":"green","b":"blue"}[c] || "dark";
-    if (!skip && document.getElementById("theme-css").href.endsWith("/themes/" + c + ".css")) {
+    /*if (!skip && document.getElementById("theme-css").href.endsWith("/themes/" + c + ".css")) {
         console.log("reset theme")
         c = "dark"
-    }
-    document.getElementById("theme-css").href = "./themes/" + c + ".css";
-    localStorage.setItem("theme", c);
+    }*/
+    //document.getElementById("theme-css").href = "./themes/" + c + ".css";
+    //localStorage.setItem("theme", c);
     if (c == "dark" || c == "light") resetBackgroundImage()
     else document.getElementById("background").style.backgroundImage = 'url("./assets/bg-' + c + '.png")'
 }

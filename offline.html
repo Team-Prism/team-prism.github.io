@@ -19,7 +19,7 @@
         <script src="./js/story.js"></script>
     </head>
 
-    <body id="body">
+    <body id="body" class="offline">
         <div id="background"></div>
         <div id="header" class="fancy-border">
             <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 530 530" version="1.1" id="team-prism-logo-svg" style="stroke-width:20">
@@ -37,6 +37,7 @@
             <a href="https://discord.gg/vGwKZep">Discord</a>
             <a onclick="switchTheme();event.preventDefault()">Theme</a>
             <a href="javascript:toggleWidePages();">Wide</a>
+            <a href="index.html"></a>
             
         </div>
         <div id="full-content">
@@ -59,7 +60,8 @@
     
             <div id="story-content" class="content">
                 <div class="content-main fancy-border">
-                    You are offline, and you need to be online to read the story!
+                    You are offline, and you need to be online to read the story!<br>
+                    Try to go online: <a href="index.html#story">click</a>
                 </div>
     
                 <div class="content-footer fancy-border">
@@ -79,6 +81,7 @@
                 <div id="debug-content" class="fancy-border">
                     Advanced Information<br>
                     website version: <span id="db-ver">unknown (is javascript enabled?)</span><br>
+                    load offline page: -<br>
                     browser user agent: <a href="https://www.whatismybrowser.com/" title="click for more browser info" id="db-useragent"></a>
                 </div>
             </div>
