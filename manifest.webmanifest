@@ -4,21 +4,21 @@
     "description": "Standalone for Color Thing",
     "display": "standalone",
     "background_color": "#000000",
-    "scope": "/Color-Thing/",
-    "start_url": "/Color-Thing/index.html#home",
+    "scope": "/",
+    "start_url": "/index.html#home",
     "icons": [
         {
-            "src": "/Color-Thing/pwa/icons/92x92.png",
+            "src": "/pwa/icons/92x92.png",
             "sizes": "92x92",
             "type": "image/png"
         },
         {
-            "src": "/Color-Thing/pwa/icons/192x192.png",
+            "src": "/pwa/icons/192x192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "/Color-Thing/pwa/icons/512x512.png",
+            "src": "/pwa/icons/512x512.png",
             "sizes": "512x512",
             "type": "image/png"
         }
@@ -28,15 +28,15 @@
             "name": "Story Index",
             "short_name": "Story Index",
             "description": "Jump to the Index of the Story",
-            "url": "/Color-Thing/index.html#story?-1",
-            "icons": [{ "src": "/Color-Thing/pwa/icons/192x192.png", "sizes": "192x192" }]
+            "url": "/index.html#story?-1",
+            "icons": [{ "src": "/pwa/icons/192x192.png", "sizes": "192x192" }]
         },
         {
             "name": "Story Unread",
             "short_name": "Story Index",
             "description": "Jump to the first unread page of the story",
-            "url": "/Color-Thing/index.html#story?-2",
-            "icons": [{ "src": "/Color-Thing/pwa/icons/192x192.png", "sizes": "192x192" }]
+            "url": "/index.html#story?-2",
+            "icons": [{ "src": "/pwa/icons/192x192.png", "sizes": "192x192" }]
         }
     ]
   }

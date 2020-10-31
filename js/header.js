@@ -5,6 +5,10 @@ function setTitle(text) {
     document.getElementById("title").innerHTML = text;
 }
 
+function setTheme(color) {
+    document.getElementById("meta-theme-color").setAttribute("content", color)
+}
+
 function isDarkTheme() {
     return ((localStorage.getItem("theme") || "dark") == "dark")
 }
@@ -34,11 +38,11 @@ window.onresize = function on_resize(e) {
 }
 
 function toggleWidePages() {
-    let fc = document.getElementById("body");
+    let fc = document.getElementById("full-content");
     let blog = document.getElementById("blog-div");
     
-    if (fc.classList.contains("wide")) {fc.classList.remove("wide"); blog.classList.remove("wide"); localStorage.removeItem("wide")}
-    else {fc.classList.add("wide"); blog.classList.add("wide"); localStorage.setItem("wide", "1")}
+    if (fc.classList.contains("wide")) {fc.classList.remove("wide"); blog.classList.remove("wide"); document.getElementById("header-wide").innerHTML = "Wide"; localStorage.removeItem("wide")}
+    else {fc.classList.add("wide"); blog.classList.add("wide"); document.getElementById("header-wide").innerHTML = "Narrow"; localStorage.setItem("wide", "1")}
     setTimeout(handleScroll, 250)
 }
 
@@ -46,6 +50,11 @@ function homePage(smooth) {
     currentPageA = "home"
     body.scrollTop = 0;
     body.scrollTo({top: 0, left: body.clientWidth * 0, behavior: (shouldSmoothScroll(smooth) == true ? "smooth" : "auto")})
+    document.getElementById("story-video").pause();
+    document.getElementById("header-about").classList.remove("selected")
+    document.getElementById("header-story").classList.remove("selected")
+    document.getElementById("header-home").classList.add("selected")
+    closeBlogPost()
     handleScroll()
     resetBackgroundImage()
     setTitle("Home - Color Thing")
@@ -55,11 +64,17 @@ function storyPage(smooth) {
     currentPageA = "story"
     body.scrollTop = 0;
     body.scrollTo({top: 0, left: body.clientWidth * 1, behavior: (shouldSmoothScroll(smooth) == true ? "smooth" : "auto")})
+    document.getElementById("header-about").classList.remove("selected")
+    document.getElementById("header-story").classList.add("selected")
+    document.getElementById("header-home").classList.remove("selected")
     handleScroll()
     resetBackgroundImage()
     if (smooth) {
         setStoryPageTitle()
         setTimeout(() => { window.location.hash = "story?" + currentPage; }, 2)
+    }
+    if (storyLoaded && story[currentPage].type == "video") {
+        setTimeout(() => {document.getElementById("story-video").play()}, 350)
     }
 }
 
@@ -67,6 +82,10 @@ function aboutPage(smooth) {
     currentPageA = "about"
     body.scrollTop = 0;
     body.scrollTo({top: 0, left: body.clientWidth * 2, behavior: (shouldSmoothScroll(smooth) == true ? "smooth" : "auto")})
+    document.getElementById("story-video").pause();
+    document.getElementById("header-about").classList.add("selected")
+    document.getElementById("header-story").classList.remove("selected")
+    document.getElementById("header-home").classList.remove("selected")
     handleScroll()
     resetBackgroundImage()
     setTitle("About - Color Thing")
@@ -87,13 +106,13 @@ function switchTheme() {
         localStorage.removeItem("theme");
         loadTheme();
     } else {
-        if (localStorage.getItem("theme") !== "light") {
-            setActiveTheme("light")
-            localStorage.setItem("theme", "light");
-            resetBackgroundImage()
-        } else {
+        if (localStorage.getItem("theme") !== "dark") {
             setActiveTheme("dark")
             localStorage.setItem("theme", "dark");
+            resetBackgroundImage()
+        } else {
+            setActiveTheme("light")
+            localStorage.setItem("theme", "light");
             resetBackgroundImage()
         }
     }

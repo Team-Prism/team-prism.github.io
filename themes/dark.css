@@ -9,13 +9,18 @@ body {
 
 #header-div > a > div {
     background-color: #0000;
+    border-color: #000;
+}
+
+#header > #header-div > a > div.selected {
+    background-color: #4444;
 }
 
 #header-div > a > div:hover {
     background-color: #3334;
 }
 
-.content > div {
+.content {
     background-color: #101010aa;
 }
 
@@ -37,13 +42,25 @@ a {
 }
 
 #scrollbar {
-    background-color: #0000;
+    backdrop-filter: invert(10%);
 }
 
 #scrollbar:hover {
-    background-color: #1114;
+    backdrop-filter: invert(25%);
 }
 
 #scrollbar-handle {
-    background-color: #fff4;
+    backdrop-filter: invert(75%);
+}
+
+#link-spacer {
+    border-color: #fff;
+}
+
+.discord-logo {
+    fill: #fff;
+}
+
+.github-logo {
+    fill: #fff;
 }

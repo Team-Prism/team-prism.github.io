@@ -6,9 +6,9 @@ let storyLoaded = false;
 var heldKeys = {};
 window.onkeyup = (e) => { heldKeys[e.keyCode] = false; }
 window.onkeydown = (e) => { heldKeys[e.keyCode] = true; }
-let meme = (window.location.href.endsWith("meme"));
+let meme = (window.location.href.endsWith("meme")) || (Math.random()*1000 < 5);
 
-let websiteVersionString = "v0.3.2";
+let websiteVersionString = "v0.4.0";
 
 let currentPageA = "home"
 let sb_lastY;
@@ -27,18 +27,18 @@ function resetBackgroundImage() {
             if (story[currentPage]['bg-light'].invert) bg.style.filter = "invert(100%)";
             else bg.style.filter = "invert(0%)";
         } else {
-            let chance = false
-            if (!meme) chance = (Math.random()*1000 < 5);
-            if (chance) meme = true;
-            bg.style.backgroundImage = ((meme || chance) ? 'url("https://media1.tenor.com/images/9a762bc54a465df741b0efd0ac887601/tenor.gif")' : 'url("./assets/meadowgatedark.png")');
+            bg.style.backgroundImage = (meme ? 'url("https://media1.tenor.com/images/9a762bc54a465df741b0efd0ac887601/tenor.gif")' : 'url("./assets/meadowgatedark.png")');
             bg.style.filter = "";
         }
     } else {
-        let chance = false
-        if (!meme) chance = (Math.random()*1000 < 5);
-        if (chance) meme = true;
-        bg.style.backgroundImage = ((meme || chance) ? 'url("https://media1.tenor.com/images/9a762bc54a465df741b0efd0ac887601/tenor.gif")' : 'url("./assets/meadowgatedark.png")');
+        bg.style.backgroundImage = (meme ? 'url("https://media1.tenor.com/images/9a762bc54a465df741b0efd0ac887601/tenor.gif")' : 'url("./assets/meadowgatedark.png")');
         bg.style.filter = "";
+    }
+
+    if (currentPageA == "story" && storyLoaded && story[currentPage] && isOnRealStoryPage && story[pageNumber].themecolor) {
+        setTheme(story[currentPage].themecolor)
+    } else {
+        setTheme("#000000")
     }
 }
 
@@ -83,10 +83,12 @@ window.onload = function() {
     else if (hsh.startsWith("#home")) {
         setTimeout(() => {homePage(false)}, 10);
     } else if (hsh.startsWith("#story")) {
-        setTimeout(() => {storyPage(false)}, 10, false);
+        setTimeout(() => {storyPage(false)}, 10);
         sP = window.location.hash.split("?")[1] || -1
     } else if (hsh.startsWith("#about")) {
-        setTimeout(() => {aboutPage(false)}, 10, false);
+        setTimeout(() => {aboutPage(false)}, 10);
+    } else if (hsh.startsWith("#blog")) {
+        setTimeout(() => {homePage(false); openBlogPost(hsh.split("?")[1])}, 10)
     }
     setTimeout(() => {generateStoryPage(sP, true)}, 11);
     //console.log(currentPageA)
@@ -127,6 +129,7 @@ window.onload = function() {
             let bl = document.getElementById("blog-loading");
             bl.innerHTML = err.toString()
             bl.classList.add("error")
+            console.error(err)
         })
         loadStory().then(() => {
             document.getElementById("story-main").hidden = false;
@@ -135,7 +138,33 @@ window.onload = function() {
             let sl = document.getElementById("story-loading");
             sl.innerHTML = err.toString()
             sl.classList.add("error")
-        })
+            console.error(err)
+        });
+        try {
+            const messaging = firebase.messaging();
+            messaging.getToken({vapidKey: "BMGXe-Z5zjf_9R4NZNE8aMgmSJEG_mCja2qHNmqamspwlye0xwe56LIzGPrHdSfiHY8IMPfan3JrOkDVKJs0OV4"}).then((currentToken) => {
+                if (currentToken) {
+                    console.log(currentToken)
+                //sendTokenToServer(currentToken);
+                //updateUIForPushEnabled(currentToken);
+                } else {
+                // Show permission request.
+                console.log('No registration token available. Request permission to generate one.');
+                // Show permission UI.
+                //updateUIForPushPermissionRequired();
+                //setTokenSentToServer(false);
+                }
+            }).catch((err) => {
+                console.log('An error occurred while retrieving token. ', err);
+                //showToken('Error retrieving registration token. ', err);
+                //setTokenSentToServer(false);
+            });
+            messaging.onMessage((payload) => {
+                console.log("got message. ", payload)
+            })
+        } catch {
+            //todo: tell user that notifs will not work
+        }
     }
 
     if ("serviceWorker" in navigator) {
@@ -146,7 +175,18 @@ window.onload = function() {
     if (localStorage.getItem("wide")) {
         document.getElementById("full-content").classList.add("wide");
         document.getElementById("blog-div").classList.add("wide"); 
+        document.getElementById("header-wide").innerHTML = "Narrow";
     }
+}
+
+function requestNotificationsPermission() {
+    Notification.requestPermission().then((perm) => {
+        if (perm === 'granted') {
+            console.log("notifs allowed")
+        } else {
+            console.log("notifs denied")
+        }
+    })
 }
 
 /*function updateScrollbar() {

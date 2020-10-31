@@ -1,92 +1,203 @@
 <html>
     <head>
-        <!--Discord Embed Metadata-->
-        <link type="application/json+oembed" href="oembed.json">
-        <meta name="description" content="A story about colors.">
-        <meta name="theme-color" content="#ff00ff">
-        <meta property="og:type" content="website">
-        <meta property="og:title" content="Color Thing">
-        <meta property="og:description" content="A story about colors.">
-        <meta property="og:url" content="https://team-prism.github.io/Color-Thing/">
-        <meta property="og:site_name" content="Team Prism">
+        <!-- Global site tag (gtag.js) - Google Analytics 
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4EZXYEXXY"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-G4EZXYEXXY');
+        </script>
 
-        <link rel="manifest" href="/Color-Thing/manifest.webmanifest">
-        <title id="title">web page title go brrrr</title>
-        <link id="theme-css" href="./themes/dark.css" rel="stylesheet">
+        <!-- The core Firebase JS SDK is always required and must be listed first
+        <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+        <!-- <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script> -->
+        <!-- <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-messaging.js"></script> -->
+
+        <!-- <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+        var firebaseConfig = {
+            apiKey: "AIzaSyAyVn6LEfP3EYTySFsmlSbioVjLV5XeifY",
+            authDomain: "team-prism.firebaseapp.com",
+            databaseURL: "https://team-prism.firebaseio.com",
+            projectId: "team-prism",
+            storageBucket: "team-prism.appspot.com",
+            messagingSenderId: "187528289115",
+            appId: "1:187528289115:web:109e5ed7ffabe1c33a187e",
+            measurementId: "G-WKPHB22G53"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+        //const messaging = firebase.messaging()
+        </script> -->
+
+        <!--Discord Embed Metadata-->
+        <!-- <link type="application/json+oembed" href="oembed.json"> -->
+        <!-- <meta name="description" content="A story about colors."> -->
+        <meta id="meta-theme-color" name="theme-color" content="#ffaaff">
+        <!-- <meta property="og:type" content="website"> -->
+        <!-- <meta property="og:title" content="Color Thing"> -->
+        <!-- <meta property="og:description" content="A story about colors."> -->
+        <!-- <meta property="og:url" content="https://team-prism.github.io/"> -->
+        <!-- <meta property="og:site_name" content="Team Prism"> -->
+
+        <!-- <link rel="manifest" href="/manifest.webmanifest"> -->
+        <title id="title">Offline - Color Thing</title>
+        <link id="dark-theme-css" href="./themes/dark.css" rel="stylesheet">
+        <link id="vdark-theme-css" href="./themes/very-dark.css" rel="stylesheet">
+        <link id="light-theme-css" href="./themes/light.css" rel="stylesheet">
         <link id="layout-css" href="./themes/layout.css" rel="stylesheet">
-        <script src="./js/index.js"></script>
-        <script src="./js/header.js"></script>
-        <script src="./js/story.js"></script>
+        <script src="./js/index.js" defer></script>
+        <script src="./js/header.js" defer></script>
+        <script src="./js/story.js" defer></script>
+        <script src="./js/blog.js" defer></script>
     </head>
 
-    <body id="body" class="offline">
+    <body id="body">
         <div id="background"></div>
-        <div id="header" class="fancy-border">
-            <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 530 530" version="1.1" id="team-prism-logo-svg" style="stroke-width:20">
-                <path id="logo-c" style="fill:#0000;" d="m 145,66 360,205 -360,205 z" onclick="rgbLogo()"/>
-                <g id="logo-o">
-                    <path id="logo-r" d="m 170,195 -130,75 130,75 z" onclick="setThemeColor('r', false, true)"/>
-                    <path id="logo-g" d="m 375,77  -130,75 130,75 z" onclick="setThemeColor('g', false, true)"/>
-                    <path id="logo-b" d="m 375,315 -130,75 130,75 z" onclick="setThemeColor('b', false, true)"/>
-                </g>
-            </svg>
-            <a href="#home"  onclick="homePage(true)" >Home</a>
-            <a               onclick="storyPage(true)">Story</a>
-            <a href="#about" onclick="aboutPage(true)">About</a>
-            <a href="https://github.com/Team-Prism/Color-Thing">Source</a>
-            <a href="https://discord.gg/vGwKZep">Discord</a>
-            <a onclick="switchTheme();event.preventDefault()">Theme</a>
-            <a href="javascript:toggleWidePages();">Wide</a>
-            <a href="index.html"></a>
-            
-        </div>
         <div id="full-content">
-            <div id="home-content" class="content">
-                <div class="content-main fancy-border">
-                    home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>
-                    home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>
-                    home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>
-                    home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>
-                    home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>
-                    home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>
-                    home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>home<br>
-                    home<br>home<br>home<br>home<br>home<br>home<br>home<br>
-                </div>
-    
-                <div class="content-footer fancy-border">
-                    &copy; 2020 Team Prism
-                </div>
-            </div>
-    
-            <div id="story-content" class="content">
-                <div class="content-main fancy-border">
-                    You are offline, and you need to be online to read the story!<br>
-                    Try to go online: <a href="index.html#story">click</a>
-                </div>
-    
-                <div class="content-footer fancy-border">
-                    &copy; 2020 Team Prism
-                </div>
-            </div>
-    
-            <div id="about-content" class="content">
-                <div class="content-main fancy-border">
-                    about
-                </div>
-    
-                <div class="content-footer fancy-border">
-                    &copy; 2020 Team Prism
+            <div id="home-content" class="container">
+                <div id="home-top" class="content content-main fancy-border">
+                    <div id="home-title" style="text-align: center;">Color Thing</div>
+                    <div id="home-description">description</div>
+                    <div style="display: flex">
+                        <div id="home-read-button" onclick="storyPage(true)">Read</div>
+                        <div style="margin-top: auto; margin-bottom: auto;">Read it now.</div>
+                    </div>
                 </div>
 
-                <div id="debug-content" class="fancy-border">
+                <div id="blog-container" class="content fancy-border allow-wide">
+                    <div style='text-align: center;'><h3>Changeblog Posts</h3></div>
+                    <span id="blog-loading">Loading Changeblog...</span>
+                    <div id="blog-div" hidden></div>
+                    <div style='text-align: center;'><h3>You reached the end of the changeblog!</h3></div>
+                </div>
+
+                <div id="blog-single-container" class="content fancy-border allow-wide" hidden></div>
+    
+                <div class="content content-footer fancy-border" style="text-align: center;">
+                    &copy; 2020 Team Prism
+                </div>
+            </div>
+    
+            <div id="story-content" class="container">
+                <div class='content fancy-border' id="story-loading">Loading story...</div>
+                <div class="content content-main fancy-border allow-wide" id="story-main" hidden>
+                    <table id="story-header">
+                        <tbody>
+                            <tr>
+                                <td><a    id="sh-index"  href="javascript:generateStoryPage(-1);">Index</a></td>
+                                <td><a    id="sh-unread" href="javascript:jumpToFirstUnreadPage();">Unread</a></td>
+                                <td>
+                                    <a    id="sh-prev"   href="javascript:prevStoryPage();">Previous</a>
+                                    <span id="sh-page">0</span>
+                                    <a    id="sh-next"   href="javascript:nextStoryPage();">Next</a></td>
+                                <td><a    id="sh-first"  href="javascript:generateStoryPage(1);">First Page</a></td>
+                                <td><a    id="sh-last"   href="javascript:jumpToLastPage();">Last Page</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="story-hidden" class="hidden">
+                        <audio id="story-audio"></audio>
+                    </div>
+                    <img   id="story-image" style="display:none">
+                    <video id="story-video" style="display:none" controls></video>
+                    <div   id="story-text"  style="display:none"></div>
+                    <div   id="story-404"   style="display:none">
+                        404 - could not find page <span id="s404-page">null</span>
+                    </div>
+                    <div   id="story-index" style = "display:none">
+                        <div style="text-align: center"><h2>Index</h2></div>
+                    </div>
+                </div>
+    
+                <div class="content content-footer fancy-border" style="text-align: center;">
+                    &copy; 2020 Team Prism
+                </div>
+            </div>
+    
+            <div id="about-content" class="container">
+                <div id="about-links" class="content fancy-border" style="justify-content: center; display: flex;">
+                    <div style="margin-left: auto; margin-right: auto; display: flex; margin-bottom: 0; padding: 0">
+                        <a href="https://discord.gg/vGwKZep" style="display: flex;">
+                            <div style="margin-top: auto; margin-bottom: auto; margin-right: 1vw;"><h3>Join the discord server!</h3></div>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245 240" width="50" height="50" class='discord-logo' style="position: relative; top: 5px;">
+                                <path d="M104.4 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1.1-6.1-4.5-11.1-10.2-11.1zM140.9 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1s-4.5-11.1-10.2-11.1z"/>
+                                <path d="M189.5 20h-134C44.2 20 35 29.2 35 40.6v135.2c0 11.4 9.2 20.6 20.5 20.6h113.4l-5.3-18.5 12.8 11.9 12.1 11.2 21.5 19V40.6c0-11.4-9.2-20.6-20.5-20.6zm-38.6 130.6s-3.6-4.3-6.6-8.1c13.1-3.7 18.1-11.9 18.1-11.9-4.1 2.7-8 4.6-11.5 5.9-5 2.1-9.8 3.5-14.5 4.3-9.6 1.8-18.4 1.3-25.9-.1-5.7-1.1-10.6-2.7-14.7-4.3-2.3-.9-4.8-2-7.3-3.4-.3-.2-.6-.3-.9-.5-.2-.1-.3-.2-.4-.3-1.8-1-2.8-1.7-2.8-1.7s4.8 8 17.5 11.8c-3 3.8-6.7 8.3-6.7 8.3-22.1-.7-30.5-15.2-30.5-15.2 0-32.2 14.4-58.3 14.4-58.3 14.4-10.8 28.1-10.5 28.1-10.5l1 1.2c-18 5.2-26.3 13.1-26.3 13.1s2.2-1.2 5.9-2.9c10.7-4.7 19.2-6 22.7-6.3.6-.1 1.1-.2 1.7-.2 6.1-.8 13-1 20.2-.2 9.5 1.1 19.7 3.9 30.1 9.6 0 0-7.9-7.5-24.9-12.7l1.4-1.6s13.7-.3 28.1 10.5c0 0 14.4 26.1 14.4 58.3 0 0-8.5 14.5-30.6 15.2z"/>
+                            </svg>
+                        </a>
+                        <hr style="margin: 1vw;" id="link-spacer">
+                        <a href="https://github.com/Team-Prism/Color-Thing" style="display: flex;">
+                            <svg width="50" height="50" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 1vw;">
+                                <path class="github-logo" fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z" transform="scale(64)"/>
+                            </svg>
+                            <div style="margin-top: auto; margin-bottom: auto; margin-left: 1vw;"><h3>View the source code!</h2></div>
+                        </a>
+                    </div>
+                </div>
+                <div class="content fancy-border allow-wide" style="text-align: center;">
+                    Created by Team Prism.<br>
+                    Website: <a href="https://leotomasmc.github.io/">Leo / "LeOtOmAs"</a><br>
+                    Story: <a href="https://twitter.com/minity_">Troy Melton / "Minity"</a>, <a href="https://twitter.com/GloopBloop113">Alex / "GloopBloop"</a>, Leo / "LeOtOmAs"<br>
+                    <span hidden>Art: Troy Melton / "Minity"</span>
+                    <span hidden>Music: Alex / "GloopBloop"</span>
+                </div>
+
+                <div id="about-settings" class="content fancy-border">
+                    <button onclick="requestNotificationsPermission()">Request notification permission</button> To disable notifications, just block them in your browser (will add a better way later).<br>
+                    <span hidden><button onclick="deleteLocalStorageData()">Clear Local Storage</button> This will clear local storage for this website, which saves unread pages and the selected theme.</span>
+                </div>
+
+                <div id="about-kbshortcuts" class="content fancy-border" hidden>
+                    Keyboard Shortcuts:<br>
+                    hold alt: scroll wheel speed x3
+                </div>
+    
+                <div class="content content-footer fancy-border" style="text-align: center;">
+                    &copy; 2020 Team Prism<br>Hosted on <a href="https://github.io">GitHub Pages</a>
+                </div>
+
+                <div id="debug-content" class="content fancy-border allow-wide">
                     Advanced Information<br>
                     website version: <span id="db-ver">unknown (is javascript enabled?)</span><br>
-                    load offline page: -<br>
+                    load online page: <a href="index.html#about">click</a><br>
                     browser user agent: <a href="https://www.whatismybrowser.com/" title="click for more browser info" id="db-useragent"></a>
                 </div>
             </div>
 
-            <div id="spacer-content" class="content"></div>
+            <div id="spacer-content" class="container"></div>
+        </div>
+        <div id="header-cont">
+            <div id="header" class="fancy-border">
+                <div id='header-div'>
+                    
+                    
+                    <a onclick="toggleWidePages();"><div id="header-wide">Wide</div></a>
+                    <a onclick="switchTheme();event.preventDefault()" id="header-theme"><div>Theme</div></a>
+                    <a></a>
+                    <a href="#about" onclick="aboutPage(true)"><div id="header-about">About</div></a>
+                    <a><div onclick="storyPage(true)" id="header-story">Story</div></a>
+                    <a href="#home"><div id='header-home' onclick="homePage(true)" id="header-home">Home</div></a>
+                    <a></a>
+                    <a href="index.html#about"><div>Go Online</div></a>
+                    <a>
+                        <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 530 530" version="1.1" id="team-prism-logo-svg" style="stroke-width:20">
+                            <path id="logo-c" style="fill:#0000;" d="m 145,66 360,205 -360,205 z" onclick="rgbLogo()"/>
+                            <g id="logo-o">
+                                <path id="logo-r" d="m 170,195 -130,75 130,75 z" onclick="setThemeColor('r', false, true)"/>
+                                <path id="logo-g" d="m 375,77  -130,75 130,75 z" onclick="setThemeColor('g', false, true)"/>
+                                <path id="logo-b" d="m 375,315 -130,75 130,75 z" onclick="setThemeColor('b', false, true)"/>
+                            </g>
+                        </svg>
+                    </a>
+                </div>
+            </div>
         </div>
         <div id="scrollbar">
             <div id="scrollbar-handle" style="height:5vh;top:5vh"></div>

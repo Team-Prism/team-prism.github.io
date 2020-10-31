@@ -57,6 +57,7 @@ body {
     margin-right: auto;
     z-index: 100;
     backdrop-filter: blur(5px);
+    transition-duration: 250ms;
 }
 
 #header-div {
@@ -79,7 +80,30 @@ body {
 
 #header-div > a > div {
     padding: 0.9em;
+    height: 50%;
     width: auto;
+    border-width: 0px;
+    border-style: solid;
+    transition-duration: 250ms;
+    backdrop-filter: blur(0px);
+    cursor: pointer;
+}
+
+#header-div > a > div.selected {
+    /* margin-top: auto; */
+    /* margin-bottom: auto; */
+    /* height: 65%; */
+    /* border-width: 2px; */
+    /* border-style: solid; */
+    backdrop-filter: blur(10px);
+}
+
+#header-div > a > div.selected:hover {
+    backdrop-filter: blur(5px);
+}
+
+#header-div > a > div:hover {
+    backdrop-filter: blur(5px);
 }
 
 #header-content {
@@ -93,28 +117,36 @@ body {
     height: 100vh;
 }
 
-.content {
-    width: calc(60% - 1vw);
+.container {
+    width: 100vw;
     height: calc(100vh - 5em);
     padding-top: 5em;
     position: absolute;
     top: 0;
-    margin-right: 20vw;
-    margin-left: 20vw;
     overflow-y: scroll;
     overflow-x: visible;
-    transition-property: width margin-right margin-left;
-    transition-duration: 250ms;
+    /* transition-property: width margin-right margin-left; */
     scrollbar-width: none;
 }
 
-#full-content.wide > .content {
-    width: calc(95vw - 1vw);
-    margin-right: 2.5vw;
-    margin-left: 2.5vw;
+.container > .content {
+    width: 60vw;
+    margin-right: 20vw;
+    margin-left: 20vw;
+    margin-bottom: 2vh;
+    overflow-y: visible;
+    overflow-x: visible;
+    backdrop-filter: blur(20px);
+    transition-duration: 250ms;
 }
 
-.content::-webkit-scrollbar {
+#full-content.wide > .container > .content.allow-wide {
+    width: calc(90vw);
+    margin-right: 5vw;
+    margin-left: 5vw;
+}
+
+.container::-webkit-scrollbar {
     display: none;
     width: 0px;
     height: 10em;
@@ -123,13 +155,6 @@ body {
     bottom: 0;
     right: 0;
     padding: 0;
-}
-
-.content > div {
-    margin-bottom: 2vh;
-    overflow-y: visible;
-    overflow-x: visible;
-    backdrop-filter: blur(20px);
 }
 
 #background {
@@ -165,36 +190,27 @@ body {
 }
 
 #blog-div {
-    display: block;
-}
-
-#blog-div.wide {
     display: flex;
     flex-wrap: wrap;
 }
 
 #blog-div.wide > .blog-post {
-    width: calc(49.9% - 20px);
+    min-width: calc(33.2% - 20px);
 }
 
 #blog-div > .blog-post {
+    width: min-content;
+    min-width: calc(49.8% - 20px);
+    max-width: 100%;
     padding: 10px;
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #fff;
 }
 
-#blog-div.wide > hr:nth-of-type(2n+0) {
-    display: none;
-}
-
-#blog-div > .blog-post {
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: #fff;
-}
-
-#blog-div.wide > .blog-post:nth-child(even) {
-    border-left-width: 1px;
-    border-left-style: solid;
-    border-left-color: #fff;
+#blog-div > .blog-post > .blog-content > p {
+    text-align: justify;
 }
 
 .blog-image {

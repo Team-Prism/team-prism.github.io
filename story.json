@@ -2,10 +2,14 @@
     "meta": {
         "lastPage": "2"
     },
-    "-1": {"type": "homepage"},
+    "-1": {
+        "type": "homepage"
+    },
     "1": {
+        "page": "test-1",
         "type": "video",
         "src": "./assets/test-video.mp4",
+        "themecolor": "#40d0e0",
         "bg-dark": {
             "src": "./assets/meadowgatedark.png",
             "invert": false
@@ -13,11 +17,16 @@
         "bg-light": {
             "src": "./assets/meadowgatedark.png",
             "invert": true
+        },
+        "audio": {
+            "type": "none"
         }
     },
     "2": {
+        "page": "test-2",
         "type": "image",
         "src": "./assets/meadowgatedark.png",
+        "themecolor": "#ff00ff",
         "bg-dark": {
             "src": "./assets/temp-background.png",
             "invert": false

@@ -1,5 +1,5 @@
-function loadStory() {
-    return fetch("./story.json")
+function loadStory(forceReload) {
+    return fetch("./story.json", {cache: "reload"})
         .then((res) => {
             if (!res.ok) {
                 throw new Error("HTTP error: " + res.status);
@@ -63,7 +63,11 @@ let titles = {
     "-1": "Index",
     "-2": "Latest Page",
     "-3": "Unknown Page",
-     "0": "Page 1"
+     "0": "1"
+}
+
+function getStoryPageText(page) {
+    return titles[page] || story[page].page || page;
 }
 
 function getStoryPageTitle(page) {
@@ -75,7 +79,7 @@ function setStoryPageTitle(pageNumber) {
 }
 
 function generateStoryPage(pageNumber, sethash) {
-    if (!storyLoaded) { setTimeout(() => {generateStoryPage(pageNumber, sethash)}, 10);; return; }
+    if (!storyLoaded) { setTimeout(() => {generateStoryPage(pageNumber, sethash)}, 50);; return; }
     let nf = null
     isOnRealStoryPage = false;
     if (pageNumber == -2) { jumpToFirstUnreadPage(); return}
@@ -118,10 +122,14 @@ function generateStoryPage(pageNumber, sethash) {
             return;
         }
 
+        if (story[pageNumber].themecolor) {
+            setTheme(story[pageNumber].themecolor)
+        }
+
         document.getElementById("story-text").style.display = "block";
         document.getElementById("story-text").innerHTML = story[pageNumber].text || "";
 
-        document.getElementById("sh-page").innerHTML = pageNumber;
+        document.getElementById("sh-page").innerHTML = getStoryPageText(pageNumber);
     }
 
     resetBackgroundImage()
