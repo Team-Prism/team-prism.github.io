@@ -3,9 +3,9 @@ body {
     color: #999;
 }
 
-#logo-o > #logo-r { fill: #000; stroke: #f00 }
-#logo-o > #logo-g { fill: #000; stroke: #0f0 }
-#logo-o > #logo-b { fill: #000; stroke: #00f }
+.logo-o > .logo-r { fill: #000; stroke: #f00 }
+.logo-o > .logo-g { fill: #000; stroke: #0f0 }
+.logo-o > .logo-b { fill: #000; stroke: #00f }
 
 .fancy-border {
     border-color: #555;
@@ -53,7 +53,7 @@ img:hover {
     opacity: 100%;
 }
 
-#team-prism-logo-svg {
+.team-prism-logo-svg {
     stroke: #555
 }
 

@@ -36,17 +36,17 @@ function blogNext() {
 </div>*/
 
 
-function formatPost(data, fullMode) {
+function formatPost(data, fullMode, mobile) {
     let ret = "<div class='blog-post' " + (fullMode ? "" : "onclick='openBlogPost(\"" + data.id + "\")'") + ">"
     if (data['image']){ret += "<img class='blog-image' src='" + data["image"] + "'>"}
-    ret += "<table class='blog-table'><tbody><tr>"
+    ret += "<table class='blog-table" + (mobile ? " mobile" : "") + "'><tbody><tr>"
     if (data['author']) {
         ret += "<td>";
         if (data["type"]) ret += {"announcement":"Announcement by ","blog": "Blog Post by ","website":"Website News Post by "}[data["type"]] || "";
         ret += data['author'] + "</td>"
     }
     if (data['title']){ret += "<td>" + data['title'] + "</td>"}
-    if (data['date']){ret += "<td>" + data['date'] + "</td>"}
+    if (data['date']){ret += "<td>" + data['date'][mobile ? "short" : "long"] + "</td>"}
     ret += "</tr></tbody></table>"
     if (data['content'] && fullMode){
         ret += "<div class='blog-content'>"
@@ -63,18 +63,19 @@ function formatPost(data, fullMode) {
 }
 
 function blogContent(data) {
-    ret = "";
+    let ret = "";
+    let mobile = /mobi/i.test(navigator.userAgent);
     
     for (let post in data['allPosts']) {
-        ret += formatPost(data['allPosts'][post], false)
+        ret += formatPost(data['allPosts'][post], false, mobile)
     }
 
     return ret
 }
 
 function populateBlogDiv(data) {
-    var bl = document.getElementById('blog-div')
-    var fullContent = ""
+    let bl = document.getElementById('blog-div');
+    let fullContent = "";
     //fullContent += changelogHeader()
     //fullContent += changelogNext() + "<hr>"
     fullContent += blogContent(data);
@@ -82,9 +83,9 @@ function populateBlogDiv(data) {
 
     fullContent = fullContent.replace("[discord]", "<a href='https://discord.gg/vGwKZep'>discord</a>")
     //fullContent = fullContent.replace("[test-branch]", "<a href='https://thederpymemesquad.github.io/ibr-beta/client/index.html'>test branch</a>")
-    
+    fullContent.replace(/\*\*(\S(.*?\S)?)\*\*/gm, "<b>$1</b>")
     bl.innerHTML = fullContent;
-    if (data['allPosts'].length == 1) bl.classList.add('singlepost')
+    if (data['allPosts'].length == 1) bl.classList.add('singlepost');
 }
 
 function wait(ms) {
@@ -115,24 +116,27 @@ async function loadBlog() {
 }
 
 function closeBlogPost() {
+    // debugger;
+    console.log("closing post")
     document.getElementById("home-top").hidden = false;
     document.getElementById("blog-container").hidden = false;
-    document.getElementById("blog-single-container").hidden = true;
+    document.getElementById("blog-single-container").style.display = "none";
 }
 
 function openBlogPost(post) {
     if (!blogLoaded) {setTimeout(() => {openBlogPost(post)}, 50); return; }
     let bsp = document.getElementById("blog-single-container")
-    console.log("finding post", post)
+    //console.log("finding post", post)
     for (let bp in blogData['allPosts']) {
         if (blogData['allPosts'][bp].id == post) {
             bsp.innerHTML = formatPost(blogData['allPosts'][bp], true)
             document.getElementById("home-top").hidden = true;
             document.getElementById("blog-container").hidden = true;
-            bsp.hidden = false;
+            bsp.style.display = "block";
             window.location.hash = "#blog?" + post;
+            document.getElementById("home-content").scrollTop = 0;
             return;
         }
     }
-    console.log("could not find post")
+    //console.log("could not find post")
 }

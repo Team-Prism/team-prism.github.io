@@ -8,7 +8,7 @@ window.onkeyup = (e) => { heldKeys[e.keyCode] = false; }
 window.onkeydown = (e) => { heldKeys[e.keyCode] = true; }
 let meme = (window.location.href.endsWith("meme")) || (Math.random()*1000 < 5);
 
-let websiteVersionString = "v0.4.0";
+let websiteVersionString = "v0.5.0";
 
 let currentPageA = "home"
 let sb_lastY;
@@ -35,7 +35,7 @@ function resetBackgroundImage() {
         bg.style.filter = "";
     }
 
-    if (currentPageA == "story" && storyLoaded && story[currentPage] && isOnRealStoryPage && story[pageNumber].themecolor) {
+    if (currentPageA == "story" && storyLoaded && story[currentPage] && isOnRealStoryPage && story[currentPage].themecolor) {
         setTheme(story[currentPage].themecolor)
     } else {
         setTheme("#000000")
@@ -61,8 +61,9 @@ function loadTheme() {
     }
 }
 
+let mobileElements = ["body", "full-content", "blog-div", "blog-container", "blog-single-container"]
+
 window.onload = function() {
-    console.log("loaded page")
     document.getElementById("db-ver").innerHTML = websiteVersionString;
 
     body = document.getElementById("body")
@@ -73,13 +74,32 @@ window.onload = function() {
     document.getElementById("story-content").onscroll = (e) => {setTimeout(() => {handleScroll()}, 0)}
     document.getElementById("about-content").onscroll = (e) => {setTimeout(() => {handleScroll()}, 0)}
 
-    
+    if (/mobi/i.test(navigator.userAgent)) {
+        console.log("is mobile!")
+        for (let el in mobileElements) {
+            document.getElementById(mobileElements[el]).classList.add("mobile")
+        }
+        if (window.outerHeight > window.outerWidth) {
+            document.getElementById("mobile-header").classList.remove("closed")
+        }
+        document.getElementById("full-content").classList.add("wide");
+        document.getElementById("blog-div").classList.add("wide"); 
+        document.getElementById("header-wide-a").innerHTML = ""
+        // TODO: force modified wide mode for mobile browsers
+        // note: mobile browser "force desktop site" changes the UA of the browser for that site
+        // so this method will not pickup mobile if the user forces desktop site, but if they do that
+        // they asked for it lol
+    } else if (localStorage.getItem("wide")) {
+        document.getElementById("full-content").classList.add("wide");
+        document.getElementById("blog-div").classList.add("wide"); 
+        document.getElementById("header-wide").innerHTML = "Narrow";
+    }
 
     // switch to correct page
     let hsh = window.location.hash;
     //console.log(hsh)
     let sP = -1;
-    if (hsh === "") console.log("nothing")
+    if (hsh === "") setTimeout(() => {homePage(false)}, 10);
     else if (hsh.startsWith("#home")) {
         setTimeout(() => {homePage(false)}, 10);
     } else if (hsh.startsWith("#story")) {
@@ -89,6 +109,8 @@ window.onload = function() {
         setTimeout(() => {aboutPage(false)}, 10);
     } else if (hsh.startsWith("#blog")) {
         setTimeout(() => {homePage(false); openBlogPost(hsh.split("?")[1])}, 10)
+    } else {
+        setTimeout(() => {homePage(false)}, 10);
     }
     setTimeout(() => {generateStoryPage(sP, true)}, 11);
     //console.log(currentPageA)
@@ -123,7 +145,7 @@ window.onload = function() {
     } else {
         loadBlog().then(() => {
             console.log("loaded blog")
-            document.getElementById("blog-div").hidden = false;
+            document.getElementById("blog-div").style.display = "flex";
             document.getElementById("blog-loading").remove()
         }).catch((err) => {
             let bl = document.getElementById("blog-loading");
@@ -172,11 +194,8 @@ window.onload = function() {
     }
 
     loadTheme()
-    if (localStorage.getItem("wide")) {
-        document.getElementById("full-content").classList.add("wide");
-        document.getElementById("blog-div").classList.add("wide"); 
-        document.getElementById("header-wide").innerHTML = "Narrow";
-    }
+    
+    console.log("loaded page")
 }
 
 function requestNotificationsPermission() {
@@ -187,6 +206,16 @@ function requestNotificationsPermission() {
             console.log("notifs denied")
         }
     })
+}
+
+window.onresize = function(e) {
+    if (/mobi/i.test(navigator.userAgent)) {
+        if (window.outerHeight > window.outerWidth) {
+            document.getElementById("mobile-header").classList.remove("closed")
+        } else {
+            document.getElementById("mobile-header").classList.add("closed")
+        }
+    } 
 }
 
 /*function updateScrollbar() {
@@ -243,11 +272,11 @@ window.onwheel = (e) => {
     setTimeout(handleScroll, 0)
 }
 
-window.ontouchstart = (e) => {
-    window.onwheel = null;
-    handleScroll = function() {}
-    document.getElementById("home-content").style.overflowY = "scroll";
-    document.getElementById("story-content").style.overflowY = "scroll";
-    document.getElementById("about-content").style.overflowY = "scroll";
-    window.ontouchstart = null;
-}
+// window.ontouchstart = (e) => {
+//     window.onwheel = null;
+//     handleScroll = function() {}
+//     document.getElementById("home-content").style.overflowY = "scroll";
+//     document.getElementById("story-content").style.overflowY = "scroll";
+//     document.getElementById("about-content").style.overflowY = "scroll";
+//     window.ontouchstart = null;
+// }

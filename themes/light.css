@@ -31,7 +31,7 @@ a {
     filter: invert(100%);
 }
 
-#team-prism-logo-svg {
+.team-prism-logo-svg {
     stroke: #000
 }
 

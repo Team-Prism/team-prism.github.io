@@ -1,11 +1,38 @@
 {
     "allPosts": [
         {
+            "id": "website-mobile-1",
+            "title": "Partial Mobile Support",
+            "author": "LeOtOmAs",
+            "type": "website",
+            "date": {
+                "long": "Sunday, November 1st, 2020",
+                "short": "11/1/2020"
+            },
+            "desc": "News about mobile support, and whats been done so far",
+            "content": [
+                "Hey there. I would like to announce that mobile support is here! Kind of...",
+                "I have been hard at work improving the website, and I have gotten some work done on supporting mobile users.",
+                "There is still work to be done to make it even better, but for now, I will go over how to navigate the site on mobile, and some of the things you can expect to change and improve in the future",
+                "First things first, the header. Its actually at the bottom. So it is more of a footer. If you are in portrait mode, it should show up all the time, but if you are in landscape mode, you should just see the Team Prism logo in the bottom left corner, which you can tap on to show the menu.",
+                "The menu has most of the things from the desktop header, with the exception of the wide mode toggle. I chose to not include it as everything just looks better on mobile when it is not in a narrow mode.",
+                "You have the Home, Story, About, and Theme button from the desktop header, which all do what you would expect them to do.",
+                "Now the things that are going to be changed and improved upon.",
+                "A lot of text is really small, and thats going to be fixed soon, but I have tried to make the more important text visible.",
+                "I am considering adding an 'Immersive' mode on the story page so that you have easy access to the next and previous buttons while the image or video can still take up most of the screen, but if I do not do that, I will at the very least include a button to show the image or video in fullscreen and go back quickly for mobile users.",
+                "Another thing that will change is font scaling, as currently it is can be quite big in landscape mode, while the same text is really small in portrait mode.",
+                "Thanks for reading, and I hope you enjoy the new mobile features!"
+            ]
+        },
+        {
             "id": "announcement-welcome",
             "title": "Welcome",
             "author": "LeOtOmAs",
             "type": "announcement",
-            "date": "(Updated 10/31/2020) Friday, October 30th, 2020",
+            "date": {
+                "long": "(Updated 10/31/2020) Friday, October 30th, 2020",
+                "short": "(Updated 10/31/20) 10/30/20"
+            },
             "desc": "Hey there. Welcome to this thing.",
             "content": [
                 "Hey there. Welcome to this thing. This is a webcomic that myself and the other people listed <a onclick='aboutPage(true)' href='#about'>in the about page</a> have been working on.",

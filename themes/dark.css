@@ -3,16 +3,16 @@ body {
     color: white;
 }
 
-#header {
+.header-div {
     background-color: #111d;
 }
 
-#header-div > a > div {
+.header-div > a > div {
     background-color: #0000;
     border-color: #000;
 }
 
-#header > #header-div > a > div.selected {
+.header-div > a > div.selected {
     background-color: #4444;
 }
 
@@ -37,7 +37,7 @@ a {
     color: #fff;
 }
 
-#team-prism-logo-svg {
+.team-prism-logo-svg {
     stroke: #fff
 }
 

@@ -21,21 +21,21 @@ function shouldSmoothScroll(a) {
     return ((a == undefined) ? true : a) && !window.matchMedia("(prefers-reduced-motion)").matches
 }
 
-window.onresize = function on_resize(e) {
-    switch (currentPageA) {
-        case "home":
-            homePage(false);
-            break;
-        case "story":
-            storyPage(false);
-            break;
-        case "about":
-            aboutPage(false);
-            break;
-        default:
-            homePage(false);
-    }
-}
+// window.onresize = function on_resize(e) {
+//     switch (currentPageA) {
+//         case "home":
+//             homePage(false);
+//             break;
+//         case "story":
+//             storyPage(false);
+//             break;
+//         case "about":
+//             aboutPage(false);
+//             break;
+//         default:
+//             homePage(false);
+//     }
+// }
 
 function toggleWidePages() {
     let fc = document.getElementById("full-content");
@@ -46,14 +46,42 @@ function toggleWidePages() {
     setTimeout(handleScroll, 250)
 }
 
+function storyPageFlip(side) {
+    let s = document.getElementById("story-content")
+    if (side == "left") {
+        s.classList.add("fast");
+        s.classList.remove("right");
+        s.classList.add("left");
+        s.classList.remove("fast");
+    } else if (side == "right") {
+        s.classList.add("fast");
+        s.classList.remove("left");
+        s.classList.add("right");
+        s.classList.remove("fast");
+    }
+}
+
+function selectPage(page) {
+    document.getElementById("header-about").classList.remove("selected");
+    document.getElementById("header-story").classList.remove("selected");
+    document.getElementById("header-home").classList.remove("selected");
+    document.getElementById("header-mobile-about").classList.remove("selected");
+    document.getElementById("header-mobile-story").classList.remove("selected");
+    document.getElementById("header-mobile-home").classList.remove("selected");
+    document.getElementById("header-mobile-" + page).classList.add("selected");
+    document.getElementById("header-" + page).classList.add("selected");
+}
+
 function homePage(smooth) {
     currentPageA = "home"
     body.scrollTop = 0;
     body.scrollTo({top: 0, left: body.clientWidth * 0, behavior: (shouldSmoothScroll(smooth) == true ? "smooth" : "auto")})
     document.getElementById("story-video").pause();
-    document.getElementById("header-about").classList.remove("selected")
-    document.getElementById("header-story").classList.remove("selected")
-    document.getElementById("header-home").classList.add("selected")
+    selectPage("home")
+    document.getElementById("home-content").classList.add("show")
+    document.getElementById("story-content").classList.remove("show")
+    document.getElementById("about-content").classList.remove("show")
+    storyPageFlip("right")
     closeBlogPost()
     handleScroll()
     resetBackgroundImage()
@@ -64,9 +92,10 @@ function storyPage(smooth) {
     currentPageA = "story"
     body.scrollTop = 0;
     body.scrollTo({top: 0, left: body.clientWidth * 1, behavior: (shouldSmoothScroll(smooth) == true ? "smooth" : "auto")})
-    document.getElementById("header-about").classList.remove("selected")
-    document.getElementById("header-story").classList.add("selected")
-    document.getElementById("header-home").classList.remove("selected")
+    selectPage("story")
+    document.getElementById("home-content").classList.remove("show")
+    document.getElementById("story-content").classList.add("show")
+    document.getElementById("about-content").classList.remove("show")
     handleScroll()
     resetBackgroundImage()
     if (smooth) {
@@ -83,9 +112,11 @@ function aboutPage(smooth) {
     body.scrollTop = 0;
     body.scrollTo({top: 0, left: body.clientWidth * 2, behavior: (shouldSmoothScroll(smooth) == true ? "smooth" : "auto")})
     document.getElementById("story-video").pause();
-    document.getElementById("header-about").classList.add("selected")
-    document.getElementById("header-story").classList.remove("selected")
-    document.getElementById("header-home").classList.remove("selected")
+    selectPage("about")
+    document.getElementById("home-content").classList.remove("show")
+    document.getElementById("story-content").classList.remove("show")
+    document.getElementById("about-content").classList.add("show")
+    storyPageFlip("left")
     handleScroll()
     resetBackgroundImage()
     setTitle("About - Color Thing")
@@ -116,6 +147,20 @@ function switchTheme() {
             resetBackgroundImage()
         }
     }
+}
+
+function toggleMobileHeaderState() {
+    let mh = document.getElementById("mobile-header").classList
+    if (window.outerHeight < window.outerWidth) {
+        if (mh.contains("closed")) {
+            mh.remove("closed");
+        } else {
+            mh.add("closed");
+        }
+    } else {
+        mh.remove("closed")
+    }
+    
 }
 
 function setThemeColor(c, skip, requirekey) {
