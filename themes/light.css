@@ -7,9 +7,27 @@ body > #header {
     background-color: #fffd;
 }
 
-#header-div > a > div {
-    background-color: #fff0;
+.header-div {
+    background-color: #fffd;
 }
+
+.header-div > a > div {
+    background-color: #0000;
+    border-color: #000;
+}
+
+.header-div > a > div.selected {
+    background-color: #4444;
+}
+
+#header-div > a > div:hover {
+    background-color: #3334;
+}
+
+#mobile-header.closed > .logo-button > svg {
+    background-color: #0004;
+}
+
 
 /* #header-div > a > div:hover {
     background-color: #aaaa;
@@ -33,6 +51,10 @@ a {
 
 .team-prism-logo-svg {
     stroke: #000
+}
+
+#blog-div > .blog-post {
+    border-color: #000;
 }
 
 #scrollbar {

@@ -1,6 +1,24 @@
 {
     "allPosts": [
         {
+            "id": "blog-1",
+            "title": "A Message From Minity",
+            "author": "Minity",
+            "type": "blog",
+            "date": {
+                "long": "Tuesday, November 3rd, 2020",
+                "short": "11/3/2020"
+            },
+            "desc": "A message from the artist.",
+            "content": [
+                "Hello everyone, this is Minity. I drew all the absolutely amazing art that you see on this website, including the background. As for the logo, Leo and I kinda worked together on that. I also write most of the story. GloopBloop helped a lot with that, and Leo helped a little, basically saying whether something sucked or not.",
+                "I would also like to mention someone who is not yet credited on the about page: my friend Fchar, who helped me design the characters. In the future, he may help me do some of the artwork. This would definitely increase the quality and consistency of the drawings, because to be completely honest, I rushed a lot of these first 7 panels so that we could release the site today.",
+                "This brings me to my next thought: the release schedule. As of now, I have no plan. I would like to upload pages in batches, since not a lot generally happens on one page. I hope to get some pages done pretty soon, so stay tuned for that. Unfortunately, I will be pretty busy this week, so work may be slow. I'll keep at it, though!",
+                "I think I will try to improve the art as we go forward. With this first batch, I eventually came up with a rhythm to making them, and simplifying them as I went. I should try and get help with stuff from Fchar so the lineart and stuff will be more consistent. One of the main things I changed was removing most of the shading on the characters. This was for two reasons: first, it definitely saves time. Second, it looks a little better in my opinion.",
+                "Finally, this is just a reminder that if you have any problems with the website, let us know by either joining the Discord server and sending us a message, making an issue on the Github repository, or messaging us on Twitter. Links to our profiles are in the about page."
+            ]
+        },
+        {
             "id": "website-mobile-1",
             "title": "Partial Mobile Support",
             "author": "LeOtOmAs",

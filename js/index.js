@@ -8,7 +8,7 @@ window.onkeyup = (e) => { heldKeys[e.keyCode] = false; }
 window.onkeydown = (e) => { heldKeys[e.keyCode] = true; }
 let meme = (window.location.href.endsWith("meme")) || (Math.random()*1000 < 5);
 
-let websiteVersionString = "v0.5.0";
+let websiteVersionString = "v0.5.2";
 
 let currentPageA = "home"
 let sb_lastY;
@@ -50,15 +50,13 @@ function loadTheme() {
         setThemeColor({"red":"r","green":"g","blue":"b"}[localStorage.getItem("theme")], true);
     }*/
 
-    if (!userTheme) {
-        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
-            if (!userTheme) {
-                setActiveTheme(e.matches ? "dark" : "light");
-            } else {
-                window.matchMedia("(prefers-color-scheme: dark)").removeEventListener("change", this)
-            }
-        })
-    }
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+        if (!userTheme) {
+            setActiveTheme(e.matches ? "dark" : "light");
+        } else {
+            window.matchMedia("(prefers-color-scheme: dark)").removeEventListener("change", this)
+        }
+    })
 }
 
 let mobileElements = ["body", "full-content", "blog-div", "blog-container", "blog-single-container"]
@@ -112,7 +110,7 @@ window.onload = function() {
     } else {
         setTimeout(() => {homePage(false)}, 10);
     }
-    setTimeout(() => {generateStoryPage(sP, true)}, 11);
+    setTimeout(() => {generateStoryPage(parseInt(sP), true)}, 11);
     //console.log(currentPageA)
 
     document.getElementById("db-useragent").innerHTML = window.navigator.userAgent;
@@ -210,6 +208,7 @@ function requestNotificationsPermission() {
 
 window.onresize = function(e) {
     if (/mobi/i.test(navigator.userAgent)) {
+        location.reload()
         if (window.outerHeight > window.outerWidth) {
             document.getElementById("mobile-header").classList.remove("closed")
         } else {

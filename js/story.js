@@ -9,17 +9,29 @@ function loadStory(forceReload) {
         .then((data) => {
             story = data
             storyLoaded = true;
+            updateStoryIndexBannerFromTheme()
         })
         .catch((err) => {
             throw err;
         })
 }
 
+function updateStoryIndexBannerFromTheme() {
+    if (isLightTheme()) {
+        if (!(storyLoaded && story.meta && story.meta.banners)) return
+        document.getElementById("index-a1c1").src = story.meta.banners.act1.chapter1.light
+        document.getElementById("index-a1c2").src = story.meta.banners.act1.chapter2.light
+    } else {
+        if (!(storyLoaded && story.meta && story.meta.banners)) return
+        document.getElementById("index-a1c1").src = story.meta.banners.act1.chapter1.dark
+        document.getElementById("index-a1c2").src = story.meta.banners.act1.chapter2.dark
+    }
+}
+
 function jumpToFirstUnreadPage() {
-    let page = parseInt(localStorage.getItem("lastReadPage") || "0");
     if (storyLoaded) {
-        if (parseInt(story['meta']['lastPage']) > page) page++;
-        generateStoryPage(page, false);
+        let page = parseInt(localStorage.getItem("lastReadPage") || 0);
+        generateStoryPage(page + ((parseInt(story['meta']['lastPage']) > page) ? 1 : 0), false);
     } else {
         setTimeout(jumpToFirstUnreadPage, 10);
     }
@@ -35,17 +47,20 @@ function jumpToLastPage() {
 }
 
 function nextStoryPage() {
-    if (currentPage == -1) currentPage = 0;
-    if (parseInt(localStorage.getItem("lastReadPage")) < currentPage) localStorage.setItem("lastReadPage", currentPage)
-    let page = currentPage + 1;
+    if (parseInt(currentPage) == -1) currentPage = 0;
+    console.log(currentPage)
+    console.log(localStorage.getItem("lastReadPage"))
+    console.log(parseInt(localStorage.getItem("lastReadPage") || 1) == parseInt(currentPage))
+    if (parseInt(localStorage.getItem("lastReadPage") || 1) + 1 == parseInt(currentPage)) localStorage.setItem("lastReadPage", currentPage.toString())
+    let page = parseInt(currentPage) + 1;
     if (page > story['meta'].lastPage) page = currentPage;
     //console.log("next page: " + page)
     generateStoryPage(page, false)
 }
 
 function prevStoryPage() {
-    let page = currentPage - 1;
-    if (currentPage == -1) page = -1
+    let page = parseInt(currentPage) - 1;
+    if (parseInt(currentPage) == -1) page = -1
     //console.log("prev page: " + page)
     generateStoryPage(page, false)
 }
@@ -75,7 +90,7 @@ function getStoryPageTitle(page) {
 }
 
 function setStoryPageTitle(pageNumber) {
-    setTitle(getStoryPageTitle(pageNumber || currentPage) + " - Color Thing")
+    setTitle(getStoryPageTitle(pageNumber || currentPage) + " - Chroma Fracture")
 }
 
 function generateStoryPage(pageNumber, sethash) {
@@ -83,23 +98,28 @@ function generateStoryPage(pageNumber, sethash) {
     let nf = null
     isOnRealStoryPage = false;
     if (pageNumber == -2) { jumpToFirstUnreadPage(); return}
-    if (pageNumber < -3) pageNumber = -1
+    //if (pageNumber < -3) pageNumber = -1
     if (pageNumber > story["meta"].lastPage) {nf = pageNumber; pageNumber = -3;}
     if (pageNumber == 0) pageNumber = -1
-    currentPage = pageNumber;
+    currentPage = parseInt(pageNumber);
     if (pageNumber > 0) localStorage.setItem("lastVisitedPage", pageNumber.toString())
     if (pageNumber > -2 && !sethash) window.location.hash = "#story?" + pageNumber;
     if (!story[pageNumber] || pageNumber == -3) {
         isOnRealStoryPage = false;
+        document.getElementById("story-image-fw").hidden = true
+        document.getElementById("story-image-back").hidden = true
+
         hideStoryPageElements()
         setStoryPageTitle(-3)
 
         document.getElementById("story-404").style.display = "block"
         document.getElementById("sh-page").innerHTML = "?";
-        document.getElementById("s404-page").innerHTML = (nf == null ? ". you asked for this, didnt you..." : "Story-" + nf);
+        document.getElementById("s404-page").innerHTML = (nf == null ? ". you asked for this, didnt you..." : ": Story-" + nf);
     }
     else if (story[pageNumber].type === "homepage") {
         isOnRealStoryPage = false;
+        document.getElementById("story-image-fw").hidden = true
+        document.getElementById("story-image-back").hidden = true
         
         hideStoryPageElements()
         setStoryPageTitle(-1)
@@ -111,10 +131,14 @@ function generateStoryPage(pageNumber, sethash) {
         setStoryPageTitle(pageNumber)
         if (story[pageNumber].type === "video") {
             isOnRealStoryPage = true;
+            document.getElementById("story-image-fw").hidden = true
+            document.getElementById("story-image-back").hidden = true
             document.getElementById("story-video").style.display = "block";
             document.getElementById("story-video").src = story[pageNumber].src;
         } else if (story[pageNumber].type === "image") {
             isOnRealStoryPage = true;
+            document.getElementById("story-image-fw").hidden = false
+            document.getElementById("story-image-back").hidden = false
             document.getElementById("story-image").style.display = "block";
             document.getElementById("story-image").src = story[pageNumber].src;
         } else {

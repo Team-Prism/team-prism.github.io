@@ -3,6 +3,10 @@ body {
     color: white;
 }
 
+#blog-div > .blog-post {
+    border-color: #fff;
+}
+
 .header-div {
     background-color: #111d;
 }
@@ -18,6 +22,10 @@ body {
 
 #header-div > a > div:hover {
     background-color: #3334;
+}
+
+#mobile-header.closed > .logo-button > svg {
+    background-color: #fff4;
 }
 
 .content {

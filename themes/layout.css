@@ -134,10 +134,11 @@ body.mobile > #header-cont {
     left: -100vw;
     overflow-y: scroll;
     overflow-x: visible;
-    /* transition-property: width margin-right margin-left; */
+    /* transition-property: width, margin-right, margin-left, background-color, color, opacity; */
     scrollbar-width: none;
     transition-duration: 400ms;
     transition-property: left;
+    /* opacity: 0; */
 }
 
 .mobile > .container > :last-child {
@@ -151,6 +152,7 @@ body.mobile > #header-cont {
 
 .container.show {
     left: 0;
+    /* opacity: 1; */
 }
 
 .container > .content {
@@ -234,13 +236,12 @@ body.mobile > #header-cont {
 
 #blog-div > .blog-post {
     width: min-content;
-    min-width: calc(49.8% - 20px);
+    min-width: calc(49.8% - 25px);
     max-width: 100%;
     padding: 10px;
     cursor: pointer;
     border-width: 1px;
     border-style: solid;
-    border-color: #fff;
 }
 
 #blog-div > .blog-post > p, .blog-post > .blog-content > p {
@@ -315,6 +316,28 @@ body.mobile > #header-cont {
     margin-right: auto;
 }
 
+.mobile > .container > .content > #story-image {
+    max-height: 94vh;
+}
+
+#story-image-back {
+    width: 33%;
+    height: calc(100% - 2.2em);
+    position: absolute;
+    top: 1.9em;
+    left: 0;
+    z-index: 4;
+}
+
+#story-image-fw {
+    width: 67%;
+    height: calc(100% - 2.2em);
+    position: absolute;
+    top: 1.9em;
+    right: 0;
+    z-index: 4;
+}
+
 #story-video {
     max-width: 100%;
     height: auto;
@@ -329,7 +352,23 @@ body.mobile > #header-cont {
 
 #story-header > tbody > tr > td {
     text-align: center;
-    width: calc(100%/5);
+    width: calc(100%/7);
+}
+
+#story-main {
+    margin-bottom: 0;
+}
+
+#story-nav {
+    margin-top: 0;
+}
+
+.mobile > .container > #story-nav > #story-header {
+    font-size: 0.8cm;
+}
+
+#story-index > div > img {
+    max-width: 50vw;
 }
 
 #about-content {
@@ -480,6 +519,7 @@ body.mobile > #header-cont {
     bottom: 1em;
     z-index: 100;
     transition-duration: 250ms;
+    border-radius: 0;
 }
 
 #mobile-header.closed > .logo-button > svg {
@@ -488,6 +528,7 @@ body.mobile > #header-cont {
     left: 0.5em;
     bottom: 0.5em;
     transition-duration: 250ms;
+    border-radius: 50%;
 }
 
 #mobile-header {

@@ -15,6 +15,27 @@ body {
     background-color: #000a;
 }
 
+.header-div {
+    background-color: #111d;
+}
+
+.header-div > a > div {
+    background-color: #0000;
+    border-color: #000;
+}
+
+.header-div > a > div.selected {
+    background-color: #4444;
+}
+
+#header-div > a > div:hover {
+    background-color: #3334;
+}
+
+#mobile-header.closed > .logo-button > svg {
+    background-color: #0004;
+}
+
 /*body > #header {
     background-color: #000a;
     border: none;
@@ -40,7 +61,7 @@ a {
 }
 
 #story-image {
-    opacity: 100%;
+    opacity: 75%;
 }
 
 img {
@@ -55,6 +76,10 @@ img:hover {
 
 .team-prism-logo-svg {
     stroke: #555
+}
+
+#blog-div > .blog-post {
+    border-color: #555;
 }
 
 #scrollbar {

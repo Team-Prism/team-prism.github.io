@@ -9,6 +9,10 @@ function setTheme(color) {
     document.getElementById("meta-theme-color").setAttribute("content", color)
 }
 
+function isMobile() {
+    return (/mobi/i.test(navigator.userAgent))
+}
+
 function isDarkTheme() {
     return ((localStorage.getItem("theme") || "dark") == "dark")
 }
@@ -85,7 +89,7 @@ function homePage(smooth) {
     closeBlogPost()
     handleScroll()
     resetBackgroundImage()
-    setTitle("Home - Color Thing")
+    setTitle("Home - Chroma Fracture")
 }
 
 function storyPage(smooth) {
@@ -119,7 +123,7 @@ function aboutPage(smooth) {
     storyPageFlip("left")
     handleScroll()
     resetBackgroundImage()
-    setTitle("About - Color Thing")
+    setTitle("About - Chroma Fracture")
 }
 
 function setActiveTheme(theme) {
@@ -129,10 +133,13 @@ function setActiveTheme(theme) {
     document.getElementById({"vdark": "vdark", "dark+": "vdark", "dark": "dark", "light": "light"}[theme] + "-theme-css").sheet.disabled = false
 }
 
+let shouldEnableVeryDarkTheme = false
+
 function switchTheme() {
-    if (heldKeys[91] || heldKeys[16]) {
+    if (heldKeys[91] || heldKeys[16] || (shouldEnableVeryDarkTheme && isMobile())) {
         setActiveTheme("dark+")
         localStorage.setItem("theme", "dark+");
+        shouldEnableVeryDarkTheme = false
     } else if (heldKeys[17]) {
         localStorage.removeItem("theme");
         loadTheme();
@@ -147,6 +154,7 @@ function switchTheme() {
             resetBackgroundImage()
         }
     }
+    updateStoryIndexBannerFromTheme()
 }
 
 function toggleMobileHeaderState() {

@@ -1,7 +1,7 @@
 {
-    "name": "Color Thing",
-    "short_name": "Color Thing",
-    "description": "Standalone for Color Thing",
+    "name": "Chroma Fracture",
+    "short_name": "Chroma Fracture",
+    "description": "Standalone for Chroma Fracture",
     "display": "standalone",
     "background_color": "#000000",
     "scope": "/",
