@@ -1,15 +1,27 @@
 {   
     "meta": {
-        "lastPage": "2"
+        "lastPage": "7",
+        "banners": {
+            "act1": {
+                "chapter1": {
+                    "light": "https://cdn.discordapp.com/attachments/772613551051374612/772633290426679306/banner_light.png",
+                    "dark": "https://cdn.discordapp.com/attachments/772613551051374612/772633292074778624/banner_dark.png"
+                },
+                "chapter2": {
+                    "light": "https://cdn.discordapp.com/attachments/772613551051374612/772630207378358302/ch2_banner.png",
+                    "dark": "https://cdn.discordapp.com/attachments/772613551051374612/772630207378358302/ch2_banner.png"
+                }
+            }
+        }
     },
     "-1": {
         "type": "homepage"
     },
     "1": {
-        "page": "test-1",
-        "type": "video",
-        "src": "./assets/test-video.mp4",
-        "themecolor": "#40d0e0",
+        "page": "I.i.1",
+        "type": "image",
+        "src": "https://cdn.discordapp.com/attachments/772613551051374612/772613683816824852/page1.png",
+        "themecolor": "#ff00ff",
         "bg-dark": {
             "src": "./assets/meadowgatedark.png",
             "invert": false
@@ -23,12 +35,97 @@
         }
     },
     "2": {
-        "page": "test-2",
+        "page": "I.i.2",
         "type": "image",
-        "src": "./assets/meadowgatedark.png",
+        "src": "https://cdn.discordapp.com/attachments/772613551051374612/772613688754176060/page2.png",
         "themecolor": "#ff00ff",
         "bg-dark": {
-            "src": "./assets/temp-background.png",
+            "src": "./assets/meadowgatedark.png",
+            "invert": false
+        },
+        "bg-light": {
+            "src": "./assets/meadowgatedark.png",
+            "invert": true
+        },
+        "audio": {
+            "type": "none"
+        }
+    },
+    "3": {
+        "page": "I.i.3",
+        "type": "image",
+        "src": "https://cdn.discordapp.com/attachments/772613551051374612/772613675655102505/page3.png",
+        "themecolor": "#ff00ff",
+        "bg-dark": {
+            "src": "./assets/meadowgatedark.png",
+            "invert": false
+        },
+        "bg-light": {
+            "src": "./assets/meadowgatedark.png",
+            "invert": true
+        },
+        "audio": {
+            "type": "none"
+        }
+    },
+    "4": {
+        "page": "I.i.4",
+        "type": "image",
+        "src": "https://cdn.discordapp.com/attachments/772613551051374612/772613680575283210/page4.png",
+        "themecolor": "#ff00ff",
+        "bg-dark": {
+            "src": "./assets/meadowgatedark.png",
+            "invert": false
+        },
+        "bg-light": {
+            "src": "./assets/meadowgatedark.png",
+            "invert": true
+        },
+        "audio": {
+            "type": "none"
+        }
+    },
+    "5": {
+        "page": "I.i.5",
+        "type": "image",
+        "src": "https://cdn.discordapp.com/attachments/772613551051374612/773313221712281640/page5.png",
+        "themecolor": "#ff00ff",
+        "bg-dark": {
+            "src": "./assets/meadowgatedark.png",
+            "invert": false
+        },
+        "bg-light": {
+            "src": "./assets/meadowgatedark.png",
+            "invert": true
+        },
+        "audio": {
+            "type": "none"
+        }
+    },
+    "6": {
+        "page": "I.i.6",
+        "type": "image",
+        "src": "https://cdn.discordapp.com/attachments/772613551051374612/772613682781356032/page6.png",
+        "themecolor": "#ff00ff",
+        "bg-dark": {
+            "src": "./assets/meadowgatedark.png",
+            "invert": false
+        },
+        "bg-light": {
+            "src": "./assets/meadowgatedark.png",
+            "invert": true
+        },
+        "audio": {
+            "type": "none"
+        }
+    },
+    "7": {
+        "page": "I.i.7",
+        "type": "image",
+        "src": "https://cdn.discordapp.com/attachments/772613551051374612/773313408866451486/page7.png",
+        "themecolor": "#ff00ff",
+        "bg-dark": {
+            "src": "./assets/meadowgatedark.png",
             "invert": false
         },
         "bg-light": {
