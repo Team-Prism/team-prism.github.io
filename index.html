@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en-US">
     <head>
         <!-- Global site tag (gtag.js) - Google Analytics 
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4EZXYEXXY"></script>
@@ -17,7 +18,7 @@
         <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-messaging.js"></script>
 
-        <script>
+        <script defer>
         // Your web app's Firebase configuration
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
@@ -33,17 +34,20 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
+        let fba = firebase.analytics();
         //const messaging = firebase.messaging()
         </script>
 
+        <meta name="google-site-verification" content="hFiIImBR_X0tPIh74UIwacZ_9OG76zxYUX5vah3LKHg" />
+        <meta charset="utf-8">
         <!--Discord Embed Metadata-->
         <link type="application/json+oembed" href="oembed.json">
-        <meta name="description" content="A story about colors.">
+        <meta name="description" content="A story about a boy and his friends in a colorful world.">
+        <meta name="author" content="Team Prism">
         <meta id="meta-theme-color" name="theme-color" content="#ffaaff">
         <meta property="og:type" content="website">
         <meta property="og:title" content="Chroma Fracture">
-        <meta property="og:description" content="A story about colors.">
+        <meta property="og:description" content="A story about a boy and his friends in a colorful world.">
         <meta property="og:url" content="https://team-prism.github.io/">
         <meta property="og:site_name" content="Team Prism">
 
@@ -60,16 +64,17 @@
     </head>
 
     <body id="body">
+        <!-- <button onclick="enableScreenReaderFriendlyOptions()">Enable screen reader friendly options</button> -->
         <div id="background"></div>
         <div id="full-content">
-            <div id="home-content" class="container">
+            <div id="home-content" class="container show">
                 <div id="home-top" class="content content-main fancy-border">
                     <div id="home-title" style="text-align: center;">Chroma Fracture</div><br>
                     <div id="home-description" style="text-align: center;">A story about a boy and his friends in a colorful world.</div>
                     <br><hr>
                     <div style="display: flex; justify-content: center; justify-content: space-around;">
                         <hr>
-                        <div id="home-read-button" onclick="storyPage(true)">Read</div>
+                        <button id="home-read-button" onclick="storyPage(true)">Go read it!</button>
                         <hr>
                         <!-- <div style="margin-top: auto; margin-bottom: auto; text-align: center;">Read it now.</div> -->
                     </div>
@@ -96,9 +101,9 @@
                     <div id="story-hidden" class="hidden">
                         <audio id="story-audio"></audio>
                     </div>
-                    <img   id="story-image" style="display:none">
-                    <div   id="story-image-back"    onclick="prevStoryPage()"></div>
-                    <div   id="story-image-fw"      onclick="nextStoryPage()"></div>
+                    <img   id="story-image" style="display:none" aria-labelledby="story-text">
+                    <div   id="story-image-back"    onclick="prevStoryPage('on_image_prev')"></div>
+                    <div   id="story-image-fw"      onclick="nextStoryPage('on_image_next')"></div>
                     <video id="story-video" style="display:none" controls></video>
                     <div   id="story-text"  style="display:none"></div>
                     <div   id="story-404"   style="display:none">
@@ -109,17 +114,17 @@
                     <div   id="story-index" style = "display:none">
                         <div style="text-align: center">
                             <h1>Index</h1>
-                            <img id="index-a1c1" onclick="generateStoryPage(1)">
+                            <img id="index-a1c1" alt="Act 1, Chapter 1" onclick="generateStoryPage(1, false, 'index_banner')">
                             <h4>
-                                <a href="javascript:generateStoryPage(1);">Page 1</a>
-                                <a href="javascript:generateStoryPage(2);">Page 2</a>
-                                <a href="javascript:generateStoryPage(3);">Page 3</a>
-                                <a href="javascript:generateStoryPage(4);">Page 4</a>
-                                <a href="javascript:generateStoryPage(5);">Page 5</a>
-                                <a href="javascript:generateStoryPage(6);">Page 6</a>
-                                <a href="javascript:generateStoryPage(7);">Page 7</a>
+                                <a href="javascript:generateStoryPage(1, false, 'index_page');">Page 1</a>
+                                <a href="javascript:generateStoryPage(2, false, 'index_page');">Page 2</a>
+                                <a href="javascript:generateStoryPage(3, false, 'index_page');">Page 3</a>
+                                <a href="javascript:generateStoryPage(4, false, 'index_page');">Page 4</a>
+                                <a href="javascript:generateStoryPage(5, false, 'index_page');">Page 5</a>
+                                <a href="javascript:generateStoryPage(6, false, 'index_page');">Page 6</a>
+                                <a href="javascript:generateStoryPage(7, false, 'index_page');">Page 7</a>
                             </h4>
-                            <img id="index-a1c2">
+                            <img id="index-a1c2" alt="Act 1, Chapter 2">
                             <h4>
                                 Coming Soon
                             </h4>
@@ -131,13 +136,13 @@
                     <table id="story-header">
                         <tbody>
                             <tr>
-                                <td id="sh-index"  onclick="generateStoryPage(-1);">Index</td>
-                                <td id="sh-unread" onclick="jumpToFirstUnreadPage();">Unread</td>
-                                <td id="sh-prev"   onclick="prevStoryPage();">Previous</td>
+                                <td id="sh-index"  onclick="generateStoryPage(-1, false, 'header_index');">Index</td>
+                                <td id="sh-unread" onclick="jumpToFirstUnreadPage('header_unread');">Unread</td>
+                                <td id="sh-prev"   onclick="prevStoryPage('header_prev');">Previous</td>
                                 <td id="sh-page">0</td>
-                                <td id="sh-next"   onclick="nextStoryPage();">Next</td>
-                                <td id="sh-first"  onclick="generateStoryPage(1);">First Page</td>
-                                <td id="sh-last"   onclick="jumpToLastPage();">Last Page</td>
+                                <td id="sh-next"   onclick="nextStoryPage('header_next');">Next</td>
+                                <td id="sh-first"  onclick="generateStoryPage(1, false, 'header_first');">First Page</td>
+                                <td id="sh-last"   onclick="jumpToLastPage('header_last');">Last Page</td>
                             </tr>
                         </tbody>
                     </table>
@@ -171,7 +176,7 @@
                     Created by Team Prism.<br>
                     Website: <a href="https://leotomasmc.github.io/">Leo / "LeOtOmAs"</a><br>
                     Story: <a href="https://twitter.com/minity_">Troy Melton / "Minity"</a>, <a href="https://twitter.com/GloopBloop113">Alex / "GloopBloop"</a>, Leo / "LeOtOmAs"<br>
-                    <span hidden>Art: Troy Melton / "Minity"</span>
+                    <span>Art: Troy Melton / "Minity"</span>
                     <span hidden>Music: Alex / "GloopBloop"</span>
                 </div>
 
@@ -202,15 +207,7 @@
         <div id="header-cont">
             <div id="header" class="fancy-border">
                 <div id='header-div'  class="header-div">
-                    <a onclick="switchTheme();event.preventDefault()" id="header-theme"><div>Theme</div></a>
-                    <a id="header-wide-a"><div onclick="toggleWidePages();" id="header-wide">Wide</div></a>
-                    <a></a>
-                    <a href="#about" onclick="aboutPage(true)"><div id="header-about">About</div></a>
-                    <a><div onclick="storyPage(true)" id="header-story">Story</div></a>
-                    <a href="#home"><div id='header-home' onclick="homePage(true)" id="header-home">Home</div></a>
-                    <a></a>
-                    <a></a>
-                    <a>
+                    <div>
                         <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 530 530" version="1.1" class="team-prism-logo-svg" style="stroke-width:20">
                             <path class="logo-c" style="fill:#0000;" d="m 145,66 360,205 -360,205 z" onclick="rgbLogo()"/>
                             <g class="logo-o">
@@ -219,12 +216,20 @@
                                 <path class="logo-b" d="m 375,315 -130,75 130,75 z" onclick="setThemeColor('b', false, true)"/>
                             </g>
                         </svg>
-                    </a>
+                    </div>
+                    <span></span>
+                    <span></span>
+                    <a tabindex="0" href="#home" onclick="homePage(true)"><div id='header-home'>Home</div></a>
+                    <a tabindex="0" onclick="storyPage(true)"><div id="header-story">Story</div></a>
+                    <a tabindex="0" href="#about" onclick="aboutPage(true)"><div id="header-about">About</div></a>
+                    <span></span>
+                    <a tabindex="0" id="header-wide-a" onclick="toggleWidePages();"><div id="header-wide">Wide</div></a>
+                    <a tabindex="0" id="header-theme" onclick="switchTheme();event.preventDefault()"><div>Theme</div></a>
                 </div>
             </div>
         </div>
-        <div id="mobile-header" class="header-div closed">
-            <a style="padding-top: 0.9em;" class="logo-button">
+        <div id="mobile-header" class="header-div closed" role="tablist">
+            <a style="padding-top: 0.9em;" class="logo-button" role="tab">
                 <svg onclick="toggleMobileHeaderState()" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 530 530" version="1.1" class="team-prism-logo-svg" style="stroke-width:20">
                     <path class="logo-c" style="fill:#0000;" d="m 145,66 360,205 -360,205 z"/>
                     <g class="logo-o">
@@ -234,10 +239,10 @@
                     </g>
                 </svg>
             </a>
-            <a href="#home"  onclick="homePage(true)"> <div id="header-mobile-home" >Home </div></a>
-            <a               onclick="storyPage(true)"><div id="header-mobile-story">Story</div></a>
-            <a href="#about" onclick="aboutPage(true)"><div id="header-mobile-about">About</div></a>
-            <a               onclick="switchTheme()">  <div id="header-mobile-theme">Theme</div></a>
+            <a role="tab" href="#home"  onclick="homePage(true)"> <div id="header-mobile-home" >Home </div></a>
+            <a role="tab"               onclick="storyPage(true)"><div id="header-mobile-story">Story</div></a>
+            <a role="tab" href="#about" onclick="aboutPage(true)"><div id="header-mobile-about">About</div></a>
+            <a role="tab"               onclick="switchTheme()">  <div id="header-mobile-theme">Theme</div></a>
         </div>
         <div id="scrollbar">
             <div id="scrollbar-handle" style="height:5vh;top:5vh"></div>

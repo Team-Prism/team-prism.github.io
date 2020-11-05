@@ -77,6 +77,10 @@ function selectPage(page) {
 }
 
 function homePage(smooth) {
+    closeBlogPost()
+    handleScroll()
+    if (currentPageA === "home") { return }
+    le("switch_page", {"from": currentPageA, "to": "home"})
     currentPageA = "home"
     body.scrollTop = 0;
     body.scrollTo({top: 0, left: body.clientWidth * 0, behavior: (shouldSmoothScroll(smooth) == true ? "smooth" : "auto")})
@@ -86,13 +90,13 @@ function homePage(smooth) {
     document.getElementById("story-content").classList.remove("show")
     document.getElementById("about-content").classList.remove("show")
     storyPageFlip("right")
-    closeBlogPost()
-    handleScroll()
     resetBackgroundImage()
     setTitle("Home - Chroma Fracture")
 }
 
 function storyPage(smooth) {
+    if (currentPageA === "story") { return }
+    le("switch_page", {"from": currentPageA, "to": "story"})
     currentPageA = "story"
     body.scrollTop = 0;
     body.scrollTo({top: 0, left: body.clientWidth * 1, behavior: (shouldSmoothScroll(smooth) == true ? "smooth" : "auto")})
@@ -112,6 +116,8 @@ function storyPage(smooth) {
 }
 
 function aboutPage(smooth) {
+    if (currentPageA === "about") { return }
+    le("switch_page", {"from": currentPageA, "to": "about"})
     currentPageA = "about"
     body.scrollTop = 0;
     body.scrollTo({top: 0, left: body.clientWidth * 2, behavior: (shouldSmoothScroll(smooth) == true ? "smooth" : "auto")})
@@ -124,6 +130,7 @@ function aboutPage(smooth) {
     handleScroll()
     resetBackgroundImage()
     setTitle("About - Chroma Fracture")
+    
 }
 
 function setActiveTheme(theme) {
@@ -190,14 +197,14 @@ let _logoisrgb = false;
 function rgbLogo() {
     if (heldKeys[17]) {
         if (!_logoisrgb) {
-            document.getElementById("logo-r").classList.add("rgb-r");
-            document.getElementById("logo-g").classList.add("rgb-g");
-            document.getElementById("logo-b").classList.add("rgb-b");
+            document.querySelectorAll(".logo-r").forEach(e => {e.classList.add("rgb-r")});
+            document.querySelectorAll(".logo-g").forEach(e => {e.classList.add("rgb-g")});
+            document.querySelectorAll(".logo-b").forEach(e => {e.classList.add("rgb-b")});
             _logoisrgb = true;
         } else {
-            document.getElementById("logo-r").classList.remove("rgb-r");
-            document.getElementById("logo-g").classList.remove("rgb-g");
-            document.getElementById("logo-b").classList.remove("rgb-b");
+            document.querySelectorAll(".logo-r").forEach(e => {e.classList.remove("rgb-r")});
+            document.querySelectorAll(".logo-g").forEach(e => {e.classList.remove("rgb-g")});
+            document.querySelectorAll(".logo-b").forEach(e => {e.classList.remove("rgb-b")});
             _logoisrgb = false;
         }
     } //else console.log("not holding key")

@@ -118,6 +118,7 @@ async function loadBlog() {
 function closeBlogPost() {
     // debugger;
     console.log("closing post")
+    le("close_blog_post")
     document.getElementById("home-top").hidden = false;
     document.getElementById("blog-container").hidden = false;
     document.getElementById("blog-single-container").style.display = "none";
@@ -126,6 +127,7 @@ function closeBlogPost() {
 function openBlogPost(post) {
     if (!blogLoaded) {setTimeout(() => {openBlogPost(post)}, 50); return; }
     let bsp = document.getElementById("blog-single-container")
+    if (post === "latest") post = blogData["latest"];
     //console.log("finding post", post)
     for (let bp in blogData['allPosts']) {
         if (blogData['allPosts'][bp].id == post) {
@@ -135,6 +137,7 @@ function openBlogPost(post) {
             bsp.style.display = "block";
             window.location.hash = "#blog?" + post;
             document.getElementById("home-content").scrollTop = 0;
+            le("open_blog_post", {"blog_post_id": blogData['allPosts'][bp].id})
             return;
         }
     }

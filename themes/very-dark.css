@@ -11,6 +11,12 @@ body {
     border-color: #555;
 }
 
+#home-read-button {
+    background-color: #000;
+    color: #555;
+    border-color: #555;
+}
+
 #header {
     background-color: #000a;
 }

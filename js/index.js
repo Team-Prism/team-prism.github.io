@@ -6,7 +6,7 @@ let storyLoaded = false;
 var heldKeys = {};
 window.onkeyup = (e) => { heldKeys[e.keyCode] = false; }
 window.onkeydown = (e) => { heldKeys[e.keyCode] = true; }
-let meme = (window.location.href.endsWith("meme")) || (Math.random()*1000 < 5);
+let meme = false && (window.location.href.endsWith("meme")) || (Math.random()*1000 < 5);
 
 let websiteVersionString = "v0.5.2";
 
@@ -14,6 +14,19 @@ let currentPageA = "home"
 let sb_lastY;
 let sb_ratio;
 let raf = window.requestAnimationFrame || window.setImmediate || function (c) { return setTimeout(c, 0) };
+
+let attemptToSendAnalyticsEvents = true;
+
+function le(name, params, opts) {
+    if (attemptToSendAnalyticsEvents) {
+        try {
+            fba.logEvent(name, params, opts)
+        } catch {
+            attemptToSendAnalyticsEvents = false;
+            setTimeout(() => {attemptToSendAnalyticsEvents = true}, 60000)
+        }
+    }
+}
 
 function resetBackgroundImage() {
     let bg = document.getElementById("background");
@@ -27,11 +40,13 @@ function resetBackgroundImage() {
             if (story[currentPage]['bg-light'].invert) bg.style.filter = "invert(100%)";
             else bg.style.filter = "invert(0%)";
         } else {
-            bg.style.backgroundImage = (meme ? 'url("https://media1.tenor.com/images/9a762bc54a465df741b0efd0ac887601/tenor.gif")' : 'url("./assets/meadowgatedark.png")');
+            //bg.style.backgroundImage = (meme ? 'url("https://media1.tenor.com/images/9a762bc54a465df741b0efd0ac887601/tenor.gif")' : 'url("./assets/meadowgatedark.png")');
+            bg.style.backgroundImage = 'url("./assets/meadowgatedark.png")'
             bg.style.filter = "";
         }
     } else {
-        bg.style.backgroundImage = (meme ? 'url("https://media1.tenor.com/images/9a762bc54a465df741b0efd0ac887601/tenor.gif")' : 'url("./assets/meadowgatedark.png")');
+        // bg.style.backgroundImage = (meme ? 'url("https://media1.tenor.com/images/9a762bc54a465df741b0efd0ac887601/tenor.gif")' : 'url("./assets/meadowgatedark.png")');
+        bg.style.backgroundImage = 'url("./assets/meadowgatedark.png")'
         bg.style.filter = "";
     }
 
@@ -73,7 +88,6 @@ window.onload = function() {
     document.getElementById("about-content").onscroll = (e) => {setTimeout(() => {handleScroll()}, 0)}
 
     if (/mobi/i.test(navigator.userAgent)) {
-        console.log("is mobile!")
         for (let el in mobileElements) {
             document.getElementById(mobileElements[el]).classList.add("mobile")
         }
@@ -160,31 +174,6 @@ window.onload = function() {
             sl.classList.add("error")
             console.error(err)
         });
-        try {
-            const messaging = firebase.messaging();
-            messaging.getToken({vapidKey: "BMGXe-Z5zjf_9R4NZNE8aMgmSJEG_mCja2qHNmqamspwlye0xwe56LIzGPrHdSfiHY8IMPfan3JrOkDVKJs0OV4"}).then((currentToken) => {
-                if (currentToken) {
-                    console.log(currentToken)
-                //sendTokenToServer(currentToken);
-                //updateUIForPushEnabled(currentToken);
-                } else {
-                // Show permission request.
-                console.log('No registration token available. Request permission to generate one.');
-                // Show permission UI.
-                //updateUIForPushPermissionRequired();
-                //setTokenSentToServer(false);
-                }
-            }).catch((err) => {
-                console.log('An error occurred while retrieving token. ', err);
-                //showToken('Error retrieving registration token. ', err);
-                //setTokenSentToServer(false);
-            });
-            messaging.onMessage((payload) => {
-                console.log("got message. ", payload)
-            })
-        } catch {
-            //todo: tell user that notifs will not work
-        }
     }
 
     if ("serviceWorker" in navigator) {
@@ -192,16 +181,48 @@ window.onload = function() {
     }
 
     loadTheme()
-    
+    if (Notification.permission == "granted") registerFirebaseMessaging();
     console.log("loaded page")
+}
+
+fbMessagingEnabled = false;
+
+function registerFirebaseMessaging() {
+    try {
+        const messaging = firebase.messaging();
+        messaging.getToken({vapidKey: "BMGXe-Z5zjf_9R4NZNE8aMgmSJEG_mCja2qHNmqamspwlye0xwe56LIzGPrHdSfiHY8IMPfan3JrOkDVKJs0OV4"}).then((currentToken) => {
+            if (currentToken) {
+                // console.log(currentToken);
+                fbMessagingEnabled = true;
+            //sendTokenToServer(currentToken);
+            //updateUIForPushEnabled(currentToken);
+            } else {
+            // Show permission request.
+            console.log('No registration token available. Request permission to generate one.');
+            // Show permission UI.
+            //updateUIForPushPermissionRequired();
+            //setTokenSentToServer(false);
+            }
+        }).catch((err) => {
+            console.log('An error occurred while retrieving token. ', err);
+            alert("You will not be able to get notifications because there was an error enabling them. (Are you offline, or do you have an adblocker?)")
+            //showToken('Error retrieving registration token. ', err);
+            //setTokenSentToServer(false);
+        });
+        messaging.onMessage((payload) => {
+            console.log("got message. ", payload)
+        })
+    } catch {
+        alert("You will not be able to get notifications because your device or browser does not support it.")
+    }
 }
 
 function requestNotificationsPermission() {
     Notification.requestPermission().then((perm) => {
         if (perm === 'granted') {
-            console.log("notifs allowed")
+            registerFirebaseMessaging()
         } else {
-            console.log("notifs denied")
+            alert("You will not be able to get notifictions if you deny the permission.")
         }
     })
 }

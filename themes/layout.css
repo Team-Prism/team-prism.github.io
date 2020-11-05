@@ -74,7 +74,6 @@ body.mobile > #header-cont {
 
 #header-div {
     display: flex;
-    flex-direction: row-reverse;
     position: relative;
     bottom: 1px;
     height: 100%;
@@ -85,7 +84,7 @@ body.mobile > #header-cont {
     text-align: center;
 }
 
-#header-div > a {
+#header-div > * {
     height: 100%;
     width: calc(100% / 9);
 }
@@ -134,11 +133,9 @@ body.mobile > #header-cont {
     left: -100vw;
     overflow-y: scroll;
     overflow-x: visible;
-    /* transition-property: width, margin-right, margin-left, background-color, color, opacity; */
     scrollbar-width: none;
-    transition-duration: 400ms;
-    transition-property: left;
-    /* opacity: 0; */
+    transition: left 400ms ease 0s, opacity 0s linear 400ms;
+    opacity: 0;
 }
 
 .mobile > .container > :last-child {
@@ -152,7 +149,8 @@ body.mobile > #header-cont {
 
 .container.show {
     left: 0;
-    /* opacity: 1; */
+    opacity: 1;
+    transition: left 400ms ease 0s, opacity 0s linear 0ms;
 }
 
 .container > .content {
